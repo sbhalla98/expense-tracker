@@ -9,13 +9,15 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.expensetracker.mobile"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.expensetracker.mobile"
     },
     "web": {
       "bundler": "metro",
@@ -39,7 +41,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "8e237caa-d439-4111-8157-00fa632cbadf"
+        "projectId": "a218e95b-1b72-411e-bf77-97538b18ee39"
       }
     }
   }
