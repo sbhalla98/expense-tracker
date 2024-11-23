@@ -1,17 +1,22 @@
-import { useState } from 'react';
-import { StyleSheet, TextInput, View, TouchableOpacity } from 'react-native';
-import { ThemedText } from './ThemedText';
-import { ThemedView } from './ThemedView';
+import { useState } from "react";
+import { StyleSheet, TextInput, View, TouchableOpacity } from "react-native";
+import { ThemedText } from "./ThemedText";
+import { ThemedView } from "./ThemedView";
 
 type AddExpenseFormProps = {
-  onSubmit: (expense: { amount: number; category: string; date: string }) => void;
+  onSubmit: (expense: {
+    amount: number;
+    category: string;
+    date: string;
+  }) => void;
 };
 
 export function AddExpenseForm({ onSubmit }: AddExpenseFormProps) {
-  const [amount, setAmount] = useState('');
-  const [category, setCategory] = useState('');
+  const [amount, setAmount] = useState("");
+  const [category, setCategory] = useState("");
 
   const handleSubmit = () => {
+    console.log("xyz");
     if (!amount || !category) return;
 
     const currentDate = new Date().toLocaleDateString();
@@ -22,8 +27,8 @@ export function AddExpenseForm({ onSubmit }: AddExpenseFormProps) {
     });
 
     // Reset form
-    setAmount('');
-    setCategory('');
+    setAmount("");
+    setCategory("");
   };
 
   return (
@@ -62,20 +67,20 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
     borderRadius: 8,
     padding: 12,
     fontSize: 16,
   },
   button: {
-    backgroundColor: '#007AFF',
+    backgroundColor: "#007AFF",
     padding: 16,
     borderRadius: 8,
-    alignItems: 'center',
+    alignItems: "center",
   },
   buttonText: {
-    color: 'white',
+    color: "white",
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
   },
 });
