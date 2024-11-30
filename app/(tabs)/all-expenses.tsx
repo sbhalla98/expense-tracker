@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { ThemedText } from '../../components/ThemedText';
 import { ThemedView } from '../../components/ThemedView';
-import { ExpenseItem } from '../../components/Expensetem';
+import { ExpenseItem } from '../../components/ExpenseItem';
 import { useExpenses } from '../../context/ExpenseContext';
 import { Ionicons } from '@expo/vector-icons';
+import { FlatList } from 'react-native-gesture-handler';
 
 type SortOption = 'date' | 'amount';
 type SortOrder = 'asc' | 'desc';
@@ -42,9 +43,9 @@ export default function AllExpensesScreen() {
       <ThemedView style={styles.header}>
         <ThemedText type="title">All Expenses</ThemedText>
         <ThemedView style={styles.totalContainer}>
-          <ThemedText type="subtitle">Total Expenses:</ThemedText>
+          <ThemedText type="title" style={styles.totalAmount}>Total Expenses:</ThemedText>
           <ThemedText type="title" style={styles.totalAmount}>
-            ${totalExpenses.toFixed(2)}
+            ₹ {totalExpenses.toFixed(2)}
           </ThemedText>
         </ThemedView>
       </ThemedView>
@@ -86,14 +87,12 @@ export default function AllExpensesScreen() {
             No expenses added yet
           </ThemedText>
         ) : (
-          sortedExpenses.map((expense) => (
-            <ExpenseItem
-              key={expense.id}
-              amount={expense.amount}
-              category={expense.category}
-              date={expense.date}
-            />
-          ))
+          <FlatList data={sortedExpenses} renderItem={({item: expense}) => <ExpenseItem
+            key={expense.id}
+            amount={expense.amount}
+            category={expense.category}
+            date={expense.date}
+          />} />
         )}
       </ThemedView>
     </ScrollView>
@@ -103,6 +102,10 @@ export default function AllExpensesScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "rgb(21, 23, 24)",
+    maxWidth: 400,
+    width: "100%",
+    margin: "auto"
   },
   header: {
     padding: 16,
@@ -113,6 +116,7 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 8,
     gap: 8,
+    color: 'rgba(0,122,255,1.00)'
   },
   totalAmount: {
     color: '#007AFF',

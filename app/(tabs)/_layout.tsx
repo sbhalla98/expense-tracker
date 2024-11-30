@@ -24,7 +24,16 @@ export default function TabLayout() {
             // Use a transparent background on iOS to show the blur effect
             position: 'absolute',
           },
-          default: {},
+          default: {
+            borderTopWidth: 0,
+            maxWidth: 400,
+            width: "100%",
+            margin: "auto",
+            borderLeftWidth: 2,
+            borderRightWidth: 2,
+            borderColor: "rgb(21, 23, 24)"
+          },
+
         }),
       }}>
       <Tabs.Screen
@@ -39,14 +48,15 @@ export default function TabLayout() {
         options={{
           title: "All Expenses",
           tabBarIcon: ({ focused, color }) => (
-            <Ionicons 
-              name={focused ? "list" : "list-outline"} 
-              size={24} 
-              color={color} 
+            <Ionicons
+              name={focused ? "list" : "list-outline"}
+              size={24}
+              color={color}
             />
           ),
         }}
       />
+
     </Tabs>
   );
 }
