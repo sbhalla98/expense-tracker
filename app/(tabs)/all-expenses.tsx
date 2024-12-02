@@ -3,7 +3,7 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 import { ThemedText } from '../../components/ThemedText';
 import { ThemedView } from '../../components/ThemedView';
 import { ExpenseItem } from '../../components/ExpenseItem';
-import { useExpenses } from '../../hooks/useExpense';
+import useExpenseStore from '../../hooks/useExpense';
 import { Ionicons } from '@expo/vector-icons';
 import { FlatList } from 'react-native-gesture-handler';
 import { useThemeColor } from '@/hooks/useThemeColor';
@@ -13,9 +13,8 @@ type SortOption = 'date' | 'amount';
 type SortOrder = 'asc' | 'desc';
 
 export default function AllExpensesScreen() {
+  const { expenses = [], totalExpenses } = useExpenseStore();
   const backgroundColor = useThemeColor({ light: "#fff", dark: "rgb(21, 23, 24)" }, 'background');
-
-  const { expenses, totalExpenses } = useExpenses();
   const [sortBy, setSortBy] = useState<SortOption>('date');
   const [sortOrder, setSortOrder] = useState<SortOrder>('desc');
 
@@ -74,7 +73,7 @@ export default function AllExpensesScreen() {
       </ThemedView>
 
       <ThemedView style={styles.expensesList}>
-        {expenses?.length === 0 ? (
+        {sortedExpenses?.length === 0 ? (
           <ThemedText style={styles.noExpenses}>
             No expenses added yet
           </ThemedText>

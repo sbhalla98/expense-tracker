@@ -27,7 +27,7 @@ export default function TabLayout() {
           },
           default: {
             borderTopWidth: 0,
-            maxWidth: 500,
+            maxWidth: 600,
             width: "100%",
             margin: "auto",
             borderLeftWidth: 2,
@@ -36,7 +36,9 @@ export default function TabLayout() {
           },
         }),
         sceneStyle: {
-          maxWidth: 500
+          maxWidth: 600,
+          margin:"auto",
+          width: "100%"
         }
       }}>
       <Tabs.Screen

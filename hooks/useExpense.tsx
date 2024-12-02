@@ -1,5 +1,7 @@
-import { STORAGE_KEYS, Storage } from '@/storage/storage';
-import  { useState, useEffect } from 'react';
+import { STORAGE_KEYS } from '@/storage/storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
 
 export type Expense = {
   id: string;
@@ -8,50 +10,36 @@ export type Expense = {
   date: string;
 };
 
-export function useExpenses() {
-  const [expenses, setExpenses] = useState<Array<Expense>>([]);
 
-  const addExpense = (newExpense: Omit<Expense, 'id'>) => {
-    const expenseWithId = {
-      ...newExpense,
-      id: Date.now().toString(),
-    };
-    let prevExpenses = expenses ?? [];
-    const updatedExpenses = [expenseWithId, ...prevExpenses];
-    Storage.setItem(STORAGE_KEYS.EXPENSES, updatedExpenses);
-    setExpenses(updatedExpenses);
-  };
+export const useExpenseStore = create(
+  persist(
+    (set, get) => {
+      return {
+        expenses: [],
+        totalExpenses: 0,
+        addExpense: (newExpense: Omit<Expense, 'id'>) => {
+          const expenseWithId = {
+            ...newExpense,
+            id: Date.now().toString(),
+          };
+          let prevExpenses = get()?.expenses ?? [];
+          const updatedExpenses = [expenseWithId, ...prevExpenses];
+          set({ expenses: updatedExpenses, totalExpenses: updatedExpenses?.reduce((res: number, item: Expense) => res + item.amount, 0) });
+        },
+        removeExpense: (removeExpense: Expense) => {
+          const updatedExpenses = get()?.expenses.filter((expense: Expense) => expense.id !== removeExpense.id);
+          set({ expenses: updatedExpenses, totalExpenses: updatedExpenses?.reduce((res: number, item: Expense) => res + item.amount, 0) });
+        },
+        removeAllExpense: () => {
+          const updatedExpenses: Array<Expense> = [];
+          set({ expenses: updatedExpenses, totalExpenses: 0 });
+        }
+      }
+    }, {
+    name: STORAGE_KEYS.EXPENSES,
+    storage: createJSONStorage(() => AsyncStorage),
+  })
 
-  const removeExpense = (removeExpense: Expense) => {
-    const updatedExpenses = expenses.filter((expense:Expense) => expense.id !== removeExpense.id);
-    Storage.setItem(STORAGE_KEYS.EXPENSES, updatedExpenses);
-    setExpenses(updatedExpenses);
-  };
+);
 
-  const removeAllExpense = () => {
-    const updatedExpenses: Array<Expense> = [];
-    Storage.setItem(STORAGE_KEYS.EXPENSES, updatedExpenses);
-    setExpenses(updatedExpenses);
-  };
-
-  const getData = async () => {
-    try{
-      const recentExpenses = await Storage.getItem(STORAGE_KEYS.EXPENSES);
-      setExpenses(recentExpenses?.slice(0,5));
-    }catch{
-      console.error("Error In Fetching Data..")
-    }
-  }
-
-  useEffect(() => {
-    getData();
-  },[])
-
-  return {
-    expenses,
-    addExpense,
-    totalExpenses: expenses?.reduce((res: number, item: Expense) => res + item.amount,0),
-    removeExpense,
-    removeAllExpense
-  };
-}
+export default useExpenseStore;

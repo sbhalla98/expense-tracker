@@ -1,16 +1,16 @@
-import { StyleSheet, ScrollView, FlatListComponent, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { ThemedText } from '../../components/ThemedText';
 import { ThemedView } from '../../components/ThemedView';
 import { ExpenseItem } from '../../components/ExpenseItem';
 import { AddExpenseForm } from '../../components/AddExpenseForm';
-import { Expense, useExpenses } from '../../hooks/useExpense';
+import useExpenseStore from '../../hooks/useExpense';
 import { useThemeColor } from '@/hooks/useThemeColor';
 import { FlatList } from 'react-native-gesture-handler';
 
 export default function HomeScreen() {
-  const { expenses = [], addExpense, totalExpenses } = useExpenses();
-  const backgroundColor = useThemeColor({ light: "#fff", dark: "rgb(21, 23, 24)" }, 'background');
+  const { expenses = [], addExpense, totalExpenses } = useExpenseStore();
 
+  const backgroundColor = useThemeColor({ light: "#fff", dark: "rgb(21, 23, 24)" }, 'background');
   return (
     <ThemedView style={{ ...styles.container, backgroundColor}}>
       <ThemedView style={styles.header}>
