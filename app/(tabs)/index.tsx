@@ -8,7 +8,7 @@ import { useThemeColor } from '@/hooks/useThemeColor';
 import { FlatList } from 'react-native-gesture-handler';
 
 export default function HomeScreen() {
-  const { expenses, addExpense, totalExpenses } = useExpenses();
+  const { expenses = [], addExpense, totalExpenses } = useExpenses();
   const backgroundColor = useThemeColor({ light: "#fff", dark: "rgb(21, 23, 24)" }, 'background');
 
   return (
