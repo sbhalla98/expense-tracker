@@ -15,7 +15,7 @@ export function ExpenseItem({ amount, category, date }: ExpenseItemProps) {
         <ThemedText>{date}</ThemedText>
       </View>
       <ThemedText type="defaultSemiBold">
-        ₹ {amount.toFixed(2)}
+        ₹ {amount?.toFixed(2)}
       </ThemedText>
     </View>
   );

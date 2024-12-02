@@ -1,16 +1,20 @@
 import { useState } from 'react';
-import { StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import { ThemedText } from '../../components/ThemedText';
 import { ThemedView } from '../../components/ThemedView';
 import { ExpenseItem } from '../../components/ExpenseItem';
-import { useExpenses } from '../../context/ExpenseContext';
+import { useExpenses } from '../../hooks/useExpense';
 import { Ionicons } from '@expo/vector-icons';
 import { FlatList } from 'react-native-gesture-handler';
+import { useThemeColor } from '@/hooks/useThemeColor';
+import { getSortedExpenses } from '@/utils/arrayUtils';
 
 type SortOption = 'date' | 'amount';
 type SortOrder = 'asc' | 'desc';
 
 export default function AllExpensesScreen() {
+  const backgroundColor = useThemeColor({ light: "#fff", dark: "rgb(21, 23, 24)" }, 'background');
+
   const { expenses, totalExpenses } = useExpenses();
   const [sortBy, setSortBy] = useState<SortOption>('date');
   const [sortOrder, setSortOrder] = useState<SortOrder>('desc');
@@ -24,57 +28,45 @@ export default function AllExpensesScreen() {
     }
   };
 
-  const getSortedExpenses = () => {
-    return [...expenses].sort((a, b) => {
-      if (sortBy === 'date') {
-        const dateA = new Date(a.date).getTime();
-        const dateB = new Date(b.date).getTime();
-        return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
-      } else {
-        return sortOrder === 'asc' ? a.amount - b.amount : b.amount - a.amount;
-      }
-    });
-  };
-
-  const sortedExpenses = getSortedExpenses();
+  const sortedExpenses = getSortedExpenses(expenses, sortOrder, sortBy) ?? [];
 
   return (
-    <ScrollView style={styles.container}>
+    <ThemedView style={{ ...styles.container, backgroundColor }}>
       <ThemedView style={styles.header}>
         <ThemedText type="title">All Expenses</ThemedText>
         <ThemedView style={styles.totalContainer}>
           <ThemedText type="title" style={styles.totalAmount}>Total Expenses:</ThemedText>
           <ThemedText type="title" style={styles.totalAmount}>
-            ₹ {totalExpenses.toFixed(2)}
+            ₹ {totalExpenses?.toFixed(2)}
           </ThemedText>
         </ThemedView>
       </ThemedView>
 
       <ThemedView style={styles.sortContainer}>
-        <TouchableOpacity 
-          style={[styles.sortButton, sortBy === 'date' && styles.activeSortButton]} 
+        <TouchableOpacity
+          style={[styles.sortButton, sortBy === 'date' && styles.activeSortButton]}
           onPress={() => toggleSort('date')}
         >
           <ThemedText style={[styles.sortText, sortBy === 'date' && styles.activeSortText]}>
             Date {sortBy === 'date' && (
-              <Ionicons 
-                name={sortOrder === 'asc' ? 'arrow-up' : 'arrow-down'} 
-                size={16} 
-                color={sortBy === 'date' ? '#fff' : '#000'} 
+              <Ionicons
+                name={sortOrder === 'asc' ? 'arrow-up' : 'arrow-down'}
+                size={16}
+                color={sortBy === 'date' ? '#fff' : '#000'}
               />
             )}
           </ThemedText>
         </TouchableOpacity>
-        <TouchableOpacity 
-          style={[styles.sortButton, sortBy === 'amount' && styles.activeSortButton]} 
+        <TouchableOpacity
+          style={[styles.sortButton, sortBy === 'amount' && styles.activeSortButton]}
           onPress={() => toggleSort('amount')}
         >
           <ThemedText style={[styles.sortText, sortBy === 'amount' && styles.activeSortText]}>
             Amount {sortBy === 'amount' && (
-              <Ionicons 
-                name={sortOrder === 'asc' ? 'arrow-up' : 'arrow-down'} 
-                size={16} 
-                color={sortBy === 'amount' ? '#fff' : '#000'} 
+              <Ionicons
+                name={sortOrder === 'asc' ? 'arrow-up' : 'arrow-down'}
+                size={16}
+                color={sortBy === 'amount' ? '#fff' : '#000'}
               />
             )}
           </ThemedText>
@@ -82,25 +74,32 @@ export default function AllExpensesScreen() {
       </ThemedView>
 
       <ThemedView style={styles.expensesList}>
-        {expenses.length === 0 ? (
+        {expenses?.length === 0 ? (
           <ThemedText style={styles.noExpenses}>
             No expenses added yet
           </ThemedText>
         ) : (
-          <FlatList data={sortedExpenses} renderItem={({item: expense}) => <ExpenseItem
-            key={expense.id}
-            amount={expense.amount}
-            category={expense.category}
-            date={expense.date}
-          />} />
+          <FlatList
+            data={sortedExpenses}
+            keyExtractor={item => item.id}
+            renderItem={({ item: expense }) => (
+              <ExpenseItem
+                key={expense?.id}
+                amount={expense?.amount}
+                category={expense?.category}
+                date={expense?.date}
+              />
+            )}
+          />
         )}
       </ThemedView>
-    </ScrollView>
+    </ThemedView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 80,
     flex: 1,
     backgroundColor: "rgb(21, 23, 24)",
     maxWidth: 400,

@@ -8,9 +8,11 @@ import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { Ionicons } from '@expo/vector-icons';
+import { useThemeColor } from '@/hooks/useThemeColor';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+  const borderColor = useThemeColor({ light: "#fff", dark: "rgb(21, 23, 24)" }, 'borderColor');
 
   return (
     <Tabs
@@ -21,7 +23,6 @@ export default function TabLayout() {
         tabBarBackground: TabBarBackground,
         tabBarStyle: Platform.select({
           ios: {
-            // Use a transparent background on iOS to show the blur effect
             position: 'absolute',
           },
           default: {
@@ -31,7 +32,7 @@ export default function TabLayout() {
             margin: "auto",
             borderLeftWidth: 2,
             borderRightWidth: 2,
-            borderColor: "rgb(21, 23, 24)"
+            borderColor
           },
 
         }),

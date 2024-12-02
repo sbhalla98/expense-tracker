@@ -3,16 +3,16 @@ import { ThemedText } from '../../components/ThemedText';
 import { ThemedView } from '../../components/ThemedView';
 import { ExpenseItem } from '../../components/ExpenseItem';
 import { AddExpenseForm } from '../../components/AddExpenseForm';
-import { useExpenses } from '../../context/ExpenseContext';
+import { Expense, useExpenses } from '../../hooks/useExpense';
+import { useThemeColor } from '@/hooks/useThemeColor';
+import { FlatList } from 'react-native-gesture-handler';
 
 export default function HomeScreen() {
   const { expenses, addExpense, totalExpenses } = useExpenses();
-
-  // Show only the 5 most recent expenses on the home screen
-  const recentExpenses = expenses.slice(0, 5);
+  const backgroundColor = useThemeColor({ light: "#fff", dark: "rgb(21, 23, 24)" }, 'background');
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={{ ...styles.container, backgroundColor}}>
       <ThemedView style={styles.header}>
         <ThemedText type="title">Expense Tracker</ThemedText>
         <ThemedView style={styles.totalContainer}>
@@ -34,14 +34,18 @@ export default function HomeScreen() {
             No expenses added yet
           </ThemedText>
         ) : (
-          recentExpenses.map((expense) => (
-            <ExpenseItem
-              key={expense.id}
-              amount={expense.amount}
-              category={expense.category}
-              date={expense.date}
-            />
-          ))
+          <FlatList 
+          data={expenses}
+          keyExtractor={(item: Expense) => item.id}
+          renderItem={({ item: expense }: {item: Expense}) => (
+              <ExpenseItem
+                key={expense?.id}
+                amount={expense?.amount}
+                category={expense?.category}
+                date={expense?.date}
+              />
+            )}
+          />
         )}
       </ThemedView>
     </ScrollView>
@@ -50,8 +54,8 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 80,
     flex: 1,
-    backgroundColor: "rgb(21, 23, 24)",
     maxWidth: 400,
     width: "100%",
     margin: "auto"
