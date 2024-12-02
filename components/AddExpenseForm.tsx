@@ -30,6 +30,26 @@ type AddExpenseFormProps = {
   }) => void;
 };
 
+function FormField({
+  label,
+  error,
+  children,
+}: {
+  label?: string;
+  error?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <View>
+      {label && <Text variant="labelLarge">{label}</Text>}
+      {children}
+      <HelperText type="error" visible={!!error}>
+        {error}
+      </HelperText>
+    </View>
+  );
+}
+
 export function AddExpenseForm({ onSubmit }: AddExpenseFormProps) {
   const [date, setDate] = useState<Date | undefined>(new Date());
   const [paidBy, setPaidBy] = useState<string>(PAID_BY_VALUES.VISHAL);
@@ -43,21 +63,12 @@ export function AddExpenseForm({ onSubmit }: AddExpenseFormProps) {
 
   const validateForm = () => {
     const newErrors: { [key: string]: string } = {};
-    if (!amount || isNaN(Number(amount))) {
+    if (!amount || isNaN(Number(amount)))
       newErrors.amount = "Amount is required and must be a number.";
-    }
-    if (!category) {
-      newErrors.category = "Category is required.";
-    }
-    if (!paidBy) {
-      newErrors.paidBy = "Please select who paid.";
-    }
-    if (!paidFor) {
-      newErrors.paidFor = "Please select who it was paid for.";
-    }
-    if (!date) {
-      newErrors.date = "Please select a date";
-    }
+    if (!category) newErrors.category = "Category is required.";
+    if (!paidBy) newErrors.paidBy = "Please select who paid.";
+    if (!paidFor) newErrors.paidFor = "Please select who it was paid for.";
+    if (!date) newErrors.date = "Please select a date.";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -86,77 +97,58 @@ export function AddExpenseForm({ onSubmit }: AddExpenseFormProps) {
 
   return (
     <ThemedView style={styles.container}>
-      <View>
-        {/* Date */}
-        <View>
-          <DatePickerInput
-            locale="en"
-            label="Expense Date"
-            value={date}
-            onChange={setDate}
-            inputMode="start"
-            mode="outlined"
-          />
-          <HelperText type="error" visible={!!errors.date}>
-            {errors.date}
-          </HelperText>
-        </View>
+      {/* Date */}
+      <FormField label="Expense Date" error={errors.date}>
+        <DatePickerInput
+          locale="en"
+          label="Select Date"
+          value={date}
+          onChange={setDate}
+          inputMode="start"
+          mode="outlined"
+        />
+      </FormField>
 
-        {/* Paid By */}
-        <View>
-          <Text variant="labelLarge">Paid By</Text>
-          <SegmentedButtons
-            value={paidBy}
-            onValueChange={setPaidBy}
-            buttons={PAID_BY_OPTIONS}
-          />
-          <HelperText type="error" visible={!!errors.paidBy}>
-            {errors.paidBy}
-          </HelperText>
-        </View>
+      {/* Paid By */}
+      <FormField label="Paid By" error={errors.paidBy}>
+        <SegmentedButtons
+          value={paidBy}
+          onValueChange={setPaidBy}
+          buttons={PAID_BY_OPTIONS}
+        />
+      </FormField>
 
-        {/* Paid For */}
-        <View>
-          <Text variant="labelLarge">Paid For</Text>
-          <SegmentedButtons
-            value={paidFor}
-            onValueChange={setPaidFor}
-            buttons={PAID_FOR_OPTIONS}
-          />
-          <HelperText type="error" visible={!!errors.paidFor}>
-            {errors.paidFor}
-          </HelperText>
-        </View>
+      {/* Paid For */}
+      <FormField label="Paid For" error={errors.paidFor}>
+        <SegmentedButtons
+          value={paidFor}
+          onValueChange={setPaidFor}
+          buttons={PAID_FOR_OPTIONS}
+        />
+      </FormField>
 
-        {/* Category */}
-        <View>
-          <Text variant="labelLarge">Category</Text>
-          <ChipSelector
-            value={category}
-            onChange={setCategory}
-            options={EXPENSE_CATEGORY_OPTIONS}
-          />
-          <HelperText type="error" visible={!!errors.category}>
-            {errors.category}
-          </HelperText>
-        </View>
+      {/* Category */}
+      <FormField label="Category" error={errors.category}>
+        <ChipSelector
+          value={category}
+          onChange={setCategory}
+          options={EXPENSE_CATEGORY_OPTIONS}
+        />
+      </FormField>
 
-        {/* Amount */}
-        <View>
-          <TextInput
-            label="Amount"
-            mode="outlined"
-            value={amount}
-            onChangeText={setAmount}
-            keyboardType="numeric"
-            error={!!errors.amount}
-          />
-          <HelperText type="error" visible={!!errors.amount}>
-            {errors.amount}
-          </HelperText>
-        </View>
+      {/* Amount */}
+      <FormField error={errors.amount}>
+        <TextInput
+          label="Amount"
+          mode="outlined"
+          value={amount}
+          onChangeText={setAmount}
+          keyboardType="numeric"
+        />
+      </FormField>
 
-        {/* Description */}
+      {/* Description */}
+      <FormField>
         <TextInput
           label="Description"
           mode="outlined"
@@ -165,7 +157,7 @@ export function AddExpenseForm({ onSubmit }: AddExpenseFormProps) {
           multiline
           style={{ height: 100 }}
         />
-      </View>
+      </FormField>
 
       {/* Submit Button */}
       <Button mode="contained" onPress={handleSubmit}>
@@ -178,6 +170,5 @@ export function AddExpenseForm({ onSubmit }: AddExpenseFormProps) {
 const styles = StyleSheet.create({
   container: {
     padding: 16,
-    gap: 16,
   },
 });

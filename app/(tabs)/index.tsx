@@ -3,7 +3,7 @@ import { ThemedText } from "../../components/ThemedText";
 import { ThemedView } from "../../components/ThemedView";
 import { ExpenseItem } from "../../components/ExpenseItem";
 import { AddExpenseForm } from "../../components/AddExpenseForm";
-import useExpenseStore from "../../hooks/useExpenseStore";
+import useExpenseStore, { Expense } from "../../hooks/useExpenseStore";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { FlatList } from "react-native-gesture-handler";
 
