@@ -1,22 +1,27 @@
-import { StyleSheet } from 'react-native';
-import { ThemedText } from '../../components/ThemedText';
-import { ThemedView } from '../../components/ThemedView';
-import { ExpenseItem } from '../../components/ExpenseItem';
-import { AddExpenseForm } from '../../components/AddExpenseForm';
-import useExpenseStore from '../../hooks/useExpenseStore';
-import { useThemeColor } from '@/hooks/useThemeColor';
-import { FlatList } from 'react-native-gesture-handler';
+import { ScrollView, StyleSheet } from "react-native";
+import { ThemedText } from "../../components/ThemedText";
+import { ThemedView } from "../../components/ThemedView";
+import { ExpenseItem } from "../../components/ExpenseItem";
+import { AddExpenseForm } from "../../components/AddExpenseForm";
+import useExpenseStore from "../../hooks/useExpenseStore";
+import { useThemeColor } from "@/hooks/useThemeColor";
+import { FlatList } from "react-native-gesture-handler";
 
 export default function HomeScreen() {
   const { expenses = [], addExpense, totalExpenses } = useExpenseStore();
 
-  const backgroundColor = useThemeColor({ light: "#fff", dark: "rgb(21, 23, 24)" }, 'background');
+  const backgroundColor = useThemeColor(
+    { light: "#fff", dark: "rgb(21, 23, 24)" },
+    "background"
+  );
   return (
-    <ThemedView style={{ ...styles.container, backgroundColor}}>
+    <ScrollView style={{ ...styles.container, backgroundColor }}>
       <ThemedView style={styles.header}>
         <ThemedText type="title">Expense Tracker</ThemedText>
         <ThemedView style={styles.totalContainer}>
-          <ThemedText type="subtitle" style={styles.totalAmount}>Total Expenses:</ThemedText>
+          <ThemedText type="subtitle" style={styles.totalAmount}>
+            Total Expenses:
+          </ThemedText>
           <ThemedText type="title" style={styles.totalAmount}>
             Rs.{totalExpenses?.toFixed(2)}
           </ThemedText>
@@ -34,21 +39,21 @@ export default function HomeScreen() {
             No expenses added yet
           </ThemedText>
         ) : (
-          <FlatList 
-          data={expenses.slice(0,3)}
-          keyExtractor={(item: Expense) => item.id}
-          renderItem={({ item: expense }: {item: Expense}) => (
+          <FlatList
+            data={expenses.slice(0, 3)}
+            keyExtractor={(item: Expense) => item.id}
+            renderItem={({ item: expense }: { item: Expense }) => (
               <ExpenseItem
-            key={expense?.id}
-            amount={expense?.amount}
-            category={expense?.category}
-            date={expense?.date}
+                key={expense?.id}
+                amount={expense?.amount}
+                category={expense?.category}
+                date={expense?.date}
               />
             )}
           />
         )}
       </ThemedView>
-      </ThemedView>
+    </ScrollView>
   );
 }
 
@@ -57,32 +62,32 @@ const styles = StyleSheet.create({
     marginTop: 80,
     flex: 1,
     width: "100%",
-    margin: "auto"
+    margin: "auto",
   },
   header: {
     padding: 16,
     gap: 16,
   },
   totalContainer: {
-    backgroundColor: '#f0f0f0',
+    backgroundColor: "#f0f0f0",
     padding: 16,
     borderRadius: 8,
     gap: 8,
   },
   totalAmount: {
-    color: '#007AFF',
+    color: "#007AFF",
   },
   expensesList: {
     padding: 16,
     gap: 8,
-    flex: 1
+    flex: 1,
   },
   listTitle: {
     marginBottom: 8,
   },
   noExpenses: {
-    textAlign: 'center',
+    textAlign: "center",
     marginTop: 20,
-    color: '#666',
+    color: "#666",
   },
 });
