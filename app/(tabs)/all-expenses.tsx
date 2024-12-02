@@ -3,7 +3,7 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 import { ThemedText } from '../../components/ThemedText';
 import { ThemedView } from '../../components/ThemedView';
 import { ExpenseItem } from '../../components/ExpenseItem';
-import useExpenseStore from '../../hooks/useExpense';
+import useExpenseStore from '../../hooks/useExpenseStore';
 import { Ionicons } from '@expo/vector-icons';
 import { FlatList } from 'react-native-gesture-handler';
 import { useThemeColor } from '@/hooks/useThemeColor';

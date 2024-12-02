@@ -1,4 +1,4 @@
-import { Expense } from "@/hooks/useExpense";
+import { Expense } from "@/hooks/useExpenseStore";
 
 export const getSortedExpenses = (data: Array<Expense> = [], sortOrder: 'asc' | 'desc',  sortBy: 'date' | 'amount') => {
     return [...data].sort((a, b) => {
