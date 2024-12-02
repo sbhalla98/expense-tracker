@@ -16,7 +16,8 @@ export function useExpenses() {
       ...newExpense,
       id: Date.now().toString(),
     };
-    const updatedExpenses = [expenseWithId, ...expenses];
+    let prevExpenses = expenses ?? [];
+    const updatedExpenses = [expenseWithId, ...prevExpenses];
     AsyncStorageValues.setItem("Expenses", updatedExpenses);
     setExpenses(updatedExpenses);
   };
@@ -49,7 +50,7 @@ export function useExpenses() {
   return {
     expenses,
     addExpense,
-    totalExpenses: expenses.reduce((res: number, item: Expense) => res + item.amount,0),
+    totalExpenses: expenses?.reduce((res: number, item: Expense) => res + item.amount,0),
     removeExpense,
     removeAllExpense
   };

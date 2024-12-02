@@ -1,4 +1,4 @@
-import { StyleSheet, ScrollView } from 'react-native';
+import { StyleSheet, ScrollView, FlatListComponent, View } from 'react-native';
 import { ThemedText } from '../../components/ThemedText';
 import { ThemedView } from '../../components/ThemedView';
 import { ExpenseItem } from '../../components/ExpenseItem';
@@ -12,13 +12,13 @@ export default function HomeScreen() {
   const backgroundColor = useThemeColor({ light: "#fff", dark: "rgb(21, 23, 24)" }, 'background');
 
   return (
-    <ScrollView style={{ ...styles.container, backgroundColor}}>
+    <ThemedView style={{ ...styles.container, backgroundColor}}>
       <ThemedView style={styles.header}>
         <ThemedText type="title">Expense Tracker</ThemedText>
         <ThemedView style={styles.totalContainer}>
           <ThemedText type="subtitle" style={styles.totalAmount}>Total Expenses:</ThemedText>
           <ThemedText type="title" style={styles.totalAmount}>
-            Rs.{totalExpenses.toFixed(2)}
+            Rs.{totalExpenses?.toFixed(2)}
           </ThemedText>
         </ThemedView>
       </ThemedView>
@@ -29,26 +29,26 @@ export default function HomeScreen() {
         <ThemedText type="subtitle" style={styles.listTitle}>
           Recent Expenses
         </ThemedText>
-        {expenses.length === 0 ? (
+        {expenses?.length === 0 ? (
           <ThemedText style={styles.noExpenses}>
             No expenses added yet
           </ThemedText>
         ) : (
           <FlatList 
-          data={expenses}
+          data={expenses.slice(0,3)}
           keyExtractor={(item: Expense) => item.id}
           renderItem={({ item: expense }: {item: Expense}) => (
               <ExpenseItem
-                key={expense?.id}
-                amount={expense?.amount}
-                category={expense?.category}
-                date={expense?.date}
+            key={expense?.id}
+            amount={expense?.amount}
+            category={expense?.category}
+            date={expense?.date}
               />
             )}
           />
         )}
       </ThemedView>
-    </ScrollView>
+      </ThemedView>
   );
 }
 
