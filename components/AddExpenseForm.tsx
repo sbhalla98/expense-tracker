@@ -17,6 +17,7 @@ import {
   PAID_FOR_VALUES,
 } from "@/constants/expense-constants";
 import ChipSelector from "./common/ChipSelector";
+import { DatePickerInput } from "react-native-paper-dates";
 
 type AddExpenseFormProps = {
   onSubmit: (expense: {
@@ -30,6 +31,7 @@ type AddExpenseFormProps = {
 };
 
 export function AddExpenseForm({ onSubmit }: AddExpenseFormProps) {
+  const [date, setDate] = useState<Date | undefined>(new Date());
   const [paidBy, setPaidBy] = useState<string>(PAID_BY_VALUES.VISHAL);
   const [paidFor, setPaidFor] = useState<string>(PAID_FOR_VALUES.VISHAL);
   const [category, setCategory] = useState<string>(
@@ -53,6 +55,9 @@ export function AddExpenseForm({ onSubmit }: AddExpenseFormProps) {
     if (!paidFor) {
       newErrors.paidFor = "Please select who it was paid for.";
     }
+    if (!date) {
+      newErrors.date = "Please select a date";
+    }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -60,17 +65,17 @@ export function AddExpenseForm({ onSubmit }: AddExpenseFormProps) {
   const handleSubmit = () => {
     if (!validateForm()) return;
 
-    const currentDate = new Date().toLocaleDateString();
     onSubmit({
       amount: parseFloat(amount),
       category,
-      date: currentDate,
+      date: (date ?? new Date()).toLocaleDateString(),
       description,
       paidBy,
       paidFor,
     });
 
     // Reset form
+    setDate(new Date());
     setAmount("");
     setCategory(EXPENSE_CATEGORY_VALUES.FOOD);
     setPaidBy(PAID_BY_VALUES.VISHAL);
@@ -82,6 +87,21 @@ export function AddExpenseForm({ onSubmit }: AddExpenseFormProps) {
   return (
     <ThemedView style={styles.container}>
       <View>
+        {/* Date */}
+        <View>
+          <DatePickerInput
+            locale="en"
+            label="Expense Date"
+            value={date}
+            onChange={setDate}
+            inputMode="start"
+            mode="outlined"
+          />
+          <HelperText type="error" visible={!!errors.date}>
+            {errors.date}
+          </HelperText>
+        </View>
+
         {/* Paid By */}
         <View>
           <Text variant="labelLarge">Paid By</Text>
