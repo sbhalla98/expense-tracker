@@ -1,4 +1,4 @@
-import { AsyncStorageValues } from '@/utils/AsyncStorage';
+import { STORAGE_KEYS, Storage } from '@/storage/storage';
 import  { useState, useEffect } from 'react';
 
 export type Expense = {
@@ -18,25 +18,25 @@ export function useExpenses() {
     };
     let prevExpenses = expenses ?? [];
     const updatedExpenses = [expenseWithId, ...prevExpenses];
-    AsyncStorageValues.setItem("Expenses", updatedExpenses);
+    Storage.setItem(STORAGE_KEYS.EXPENSES, updatedExpenses);
     setExpenses(updatedExpenses);
   };
 
   const removeExpense = (removeExpense: Expense) => {
     const updatedExpenses = expenses.filter((expense:Expense) => expense.id !== removeExpense.id);
-    AsyncStorageValues.setItem("Expenses", updatedExpenses);
+    Storage.setItem(STORAGE_KEYS.EXPENSES, updatedExpenses);
     setExpenses(updatedExpenses);
   };
 
   const removeAllExpense = () => {
     const updatedExpenses: Array<Expense> = [];
-    AsyncStorageValues.setItem("Expenses", updatedExpenses);
+    Storage.setItem(STORAGE_KEYS.EXPENSES, updatedExpenses);
     setExpenses(updatedExpenses);
   };
 
   const getData = async () => {
     try{
-      const recentExpenses = await AsyncStorageValues.getItem("Expenses");
+      const recentExpenses = await Storage.getItem(STORAGE_KEYS.EXPENSES);
       setExpenses(recentExpenses?.slice(0,5));
     }catch{
       console.error("Error In Fetching Data..")

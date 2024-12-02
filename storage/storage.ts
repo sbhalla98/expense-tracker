@@ -29,10 +29,14 @@ export const removeItem = async (key: string) => {
 };
 
 
-export const AsyncStorageValues = {
+export const Storage = {
     setItem,
     removeItem,
     getItem
 }
 
+
+export enum STORAGE_KEYS {
+  EXPENSES = "Expenses"
+}
 
