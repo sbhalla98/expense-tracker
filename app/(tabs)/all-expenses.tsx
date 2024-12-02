@@ -102,7 +102,6 @@ const styles = StyleSheet.create({
     marginTop: 80,
     flex: 1,
     backgroundColor: "rgb(21, 23, 24)",
-    maxWidth: 400,
     width: "100%",
     margin: "auto"
   },

@@ -56,7 +56,6 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 80,
     flex: 1,
-    maxWidth: 400,
     width: "100%",
     margin: "auto"
   },

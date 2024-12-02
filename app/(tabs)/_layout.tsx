@@ -27,15 +27,17 @@ export default function TabLayout() {
           },
           default: {
             borderTopWidth: 0,
-            maxWidth: 400,
+            maxWidth: 500,
             width: "100%",
             margin: "auto",
             borderLeftWidth: 2,
             borderRightWidth: 2,
             borderColor
           },
-
         }),
+        sceneStyle: {
+          maxWidth: 500
+        }
       }}>
       <Tabs.Screen
         name="index"
