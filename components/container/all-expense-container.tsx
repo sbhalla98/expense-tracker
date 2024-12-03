@@ -1,8 +1,5 @@
 import { StyleSheet } from "react-native";
-import { ThemedText } from "../ThemedText";
-import { ExpenseItem } from "../ExpenseItem";
 import useExpenseStore from "../../hooks/useExpenseStore";
-import { FlatList } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Divider, Text } from "react-native-paper";
 import ExpenseListView from "../views/expense-list-view";

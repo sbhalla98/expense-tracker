@@ -1,20 +1,57 @@
 import { StyleSheet, View } from "react-native";
-import { ThemedText } from "../ThemedText";
+import { Text, useTheme } from "react-native-paper";
+import { Expense } from "@/hooks/useExpenseStore";
 
 type ExpenseItemProps = {
-  amount: number;
-  category: string;
-  date: string;
+  expense: Expense;
 };
 
-export function ExpenseItemView({ amount, category, date }: ExpenseItemProps) {
+export function ExpenseItemView({ expense }: ExpenseItemProps) {
+  const theme = useTheme();
+
+  const { category, amount, description, date, paidBy, paidFor } =
+    expense ?? {};
+
+  if (!expense) {
+    return null;
+  }
+
   return (
-    <View style={styles.container}>
+    <View
+      style={{ ...styles.container, backgroundColor: theme?.colors?.surface }}
+    >
       <View style={styles.leftContent}>
-        <ThemedText type="defaultSemiBold">{category}</ThemedText>
-        <ThemedText>{date}</ThemedText>
+        <Text variant="labelLarge">{category}</Text>
+        <Text variant="labelSmall">{description}</Text>
+        <Text variant="labelSmall">{date}</Text>
       </View>
-      <ThemedText type="defaultSemiBold">₹ {amount?.toFixed(2)}</ThemedText>
+      <View style={styles.rightContent}>
+        <Text variant="labelLarge">₹ {Math.round(amount)}</Text>
+        {paidFor ? (
+          <Text
+            variant="labelSmall"
+            style={{
+              ...styles.paidBy,
+              backgroundColor: theme.colors.primaryContainer,
+              color: theme.colors.onPrimaryContainer,
+            }}
+          >
+            Paid For: {paidFor}
+          </Text>
+        ) : null}
+        {paidBy ? (
+          <Text
+            variant="labelSmall"
+            style={{
+              ...styles.paidBy,
+              backgroundColor: theme.colors.primaryContainer,
+              color: theme.colors.onPrimaryContainer,
+            }}
+          >
+            Paid By: {paidBy}
+          </Text>
+        ) : null}
+      </View>
     </View>
   );
 }
@@ -31,5 +68,13 @@ const styles = StyleSheet.create({
   },
   leftContent: {
     gap: 4,
+  },
+  rightContent: {
+    gap: 4,
+    alignItems: "center",
+  },
+  paidBy: {
+    borderRadius: 4,
+    padding: 4,
   },
 });

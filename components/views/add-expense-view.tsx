@@ -52,7 +52,7 @@ function FormField({
 export function AddExpenseView({ onSubmit }: AddExpenseFormProps) {
   const [date, setDate] = useState<Date | undefined>(new Date());
   const [paidBy, setPaidBy] = useState<string>(PAID_BY_VALUES.VISHAL);
-  const [paidFor, setPaidFor] = useState<string>(PAID_FOR_VALUES.VISHAL);
+  const [paidFor, setPaidFor] = useState<string>(PAID_FOR_VALUES.BOTH);
   const [category, setCategory] = useState<string>(
     EXPENSE_CATEGORY_VALUES.FOOD
   );
