@@ -96,7 +96,7 @@ export function AddExpenseForm({ onSubmit }: AddExpenseFormProps) {
   };
 
   return (
-    <ThemedView style={styles.container}>
+    <View>
       {/* Date */}
       <FormField label="Expense Date" error={errors.date}>
         <DatePickerInput
@@ -163,12 +163,6 @@ export function AddExpenseForm({ onSubmit }: AddExpenseFormProps) {
       <Button mode="contained" onPress={handleSubmit}>
         Add Expense
       </Button>
-    </ThemedView>
+    </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 16,
-  },
-});

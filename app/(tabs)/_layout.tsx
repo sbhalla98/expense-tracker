@@ -1,29 +1,32 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-import { Platform } from 'react-native';
+import { Tabs } from "expo-router";
+import React from "react";
+import { Platform } from "react-native";
 
-import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
-import { Ionicons } from '@expo/vector-icons';
-import { useThemeColor } from '@/hooks/useThemeColor';
+import { HapticTab } from "@/components/HapticTab";
+import { IconSymbol } from "@/components/ui/IconSymbol";
+import TabBarBackground from "@/components/ui/TabBarBackground";
+import { Colors } from "@/constants/Colors";
+import { useColorScheme } from "@/hooks/useColorScheme";
+import { Ionicons } from "@expo/vector-icons";
+import { useThemeColor } from "@/hooks/useThemeColor";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-  const borderColor = useThemeColor({ light: "#fff", dark: "rgb(21, 23, 24)" }, 'borderColor');
+  const borderColor = useThemeColor(
+    { light: "#fff", dark: "rgb(21, 23, 24)" },
+    "borderColor"
+  );
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
         headerShown: false,
         tabBarButton: HapticTab,
         tabBarBackground: TabBarBackground,
         tabBarStyle: Platform.select({
           ios: {
-            position: 'absolute',
+            position: "absolute",
           },
           default: {
             borderTopWidth: 0,
@@ -32,20 +35,23 @@ export default function TabLayout() {
             margin: "auto",
             borderLeftWidth: 2,
             borderRightWidth: 2,
-            borderColor
+            borderColor,
           },
         }),
         sceneStyle: {
           maxWidth: 600,
-          margin:"auto",
-          width: "100%"
-        }
-      }}>
+          margin: "auto",
+          width: "100%",
+        },
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          title: "Add Expense",
+          tabBarIcon: ({ color }) => (
+            <IconSymbol size={28} name="house.fill" color={color} />
+          ),
         }}
       />
       <Tabs.Screen
@@ -61,7 +67,6 @@ export default function TabLayout() {
           ),
         }}
       />
-
     </Tabs>
   );
 }
