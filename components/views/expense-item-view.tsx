@@ -1,6 +1,7 @@
 import { StyleSheet, View } from "react-native";
 import { Text, useTheme } from "react-native-paper";
 import { Expense } from "@/hooks/useExpenseStore";
+import { getAmountLabel } from "@/utils/string-utils";
 
 type ExpenseItemProps = {
   expense: Expense;
@@ -26,7 +27,7 @@ export function ExpenseItemView({ expense }: ExpenseItemProps) {
         <Text variant="labelSmall">{date}</Text>
       </View>
       <View style={styles.rightContent}>
-        <Text variant="labelLarge">₹ {Math.round(amount)}</Text>
+        <Text variant="labelLarge">{getAmountLabel(amount)}</Text>
         {paidFor ? (
           <Text
             variant="labelSmall"

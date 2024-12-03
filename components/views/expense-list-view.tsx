@@ -4,6 +4,8 @@ import { ThemedText } from "../ThemedText";
 import { Expense } from "@/hooks/useExpenseStore";
 import { ExpenseItemView } from "./expense-item-view";
 import { Divider, Text, useTheme } from "react-native-paper";
+import { getAmountLabel } from "@/utils/string-utils";
+import { getExpenseAmount } from "@/utils/arrayUtils";
 
 type ExpenseListViewProps = {
   expenses: Expense[];
@@ -32,10 +34,6 @@ function groupByDate(data) {
   }));
 }
 
-const getExpenseAmount = (expense: Expense[]) => {
-  return expense.reduce((a, b) => a + b.amount, 0);
-};
-
 export default function ExpenseListView({ expenses }: ExpenseListViewProps) {
   const theme = useTheme();
   const groupedList = groupByDate(expenses);
@@ -61,7 +59,7 @@ export default function ExpenseListView({ expenses }: ExpenseListViewProps) {
                 {title}
               </Text>
               <Text variant="bodyMedium" style={styles.expenseGroupHeadingText}>
-                ₹ {amount}
+                {getAmountLabel(amount)}
               </Text>
             </View>
             <Divider />
