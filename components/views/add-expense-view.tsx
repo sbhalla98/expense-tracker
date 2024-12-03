@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { StyleSheet, View } from "react-native";
-import { ThemedView } from "./ThemedView";
+import { View } from "react-native";
 import {
   Button,
   HelperText,
@@ -16,7 +15,7 @@ import {
   PAID_FOR_OPTIONS,
   PAID_FOR_VALUES,
 } from "@/constants/expense-constants";
-import ChipSelector from "./common/ChipSelector";
+import ChipSelector from "../common/ChipSelector";
 import { DatePickerInput } from "react-native-paper-dates";
 
 type AddExpenseFormProps = {
@@ -50,7 +49,7 @@ function FormField({
   );
 }
 
-export function AddExpenseForm({ onSubmit }: AddExpenseFormProps) {
+export function AddExpenseView({ onSubmit }: AddExpenseFormProps) {
   const [date, setDate] = useState<Date | undefined>(new Date());
   const [paidBy, setPaidBy] = useState<string>(PAID_BY_VALUES.VISHAL);
   const [paidFor, setPaidFor] = useState<string>(PAID_FOR_VALUES.VISHAL);
