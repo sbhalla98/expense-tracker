@@ -15,14 +15,15 @@ function groupByDate(data) {
   let groupedData = data.reduce((result, item) => {
     // Use the date as the key
     const { date } = item;
+    const localDate = new Date(date)?.toLocaleDateString();
 
     // If the key doesn't exist, initialize it with an empty array
-    if (!result[date]) {
-      result[date] = [];
+    if (!result[localDate]) {
+      result[localDate] = [];
     }
 
     // Push the item into the corresponding group
-    result[date].push(item);
+    result[localDate].push(item);
 
     return result;
   }, {}); // Start with an empty object

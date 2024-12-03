@@ -78,7 +78,7 @@ export function AddExpenseView({ onSubmit }: AddExpenseFormProps) {
     onSubmit({
       amount: parseFloat(amount),
       category,
-      date: (date ?? new Date()).toLocaleDateString(),
+      date: (date ?? new Date()).toISOString(),
       description,
       paidBy,
       paidFor,
@@ -89,7 +89,7 @@ export function AddExpenseView({ onSubmit }: AddExpenseFormProps) {
     setAmount("");
     setCategory(EXPENSE_CATEGORY_VALUES.FOOD);
     setPaidBy(PAID_BY_VALUES.VISHAL);
-    setPaidFor(PAID_FOR_VALUES.VISHAL);
+    setPaidFor(PAID_FOR_VALUES.BOTH);
     setDescription("");
     setErrors({});
   };

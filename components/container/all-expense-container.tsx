@@ -9,29 +9,24 @@ import { useState, useMemo } from "react";
 
 export default function AllExpensesContainer() {
   const { expenses = [] } = useExpenseStore();
-  const [currentMonth, setCurrentMonth] = useState(
-    new Date().getMonth() + 1 + "/" + new Date().getFullYear()
-  );
+  const [currentDate, setCurrentDate] = useState(new Date());
 
   const changeMonth = (increment: number) => {
-    const [month, year] = currentMonth.split("/");
-    const newMonth = Number(month) + increment;
-
-    if (newMonth < 1) {
-      setCurrentMonth(`12/${Number(year) - 1}`);
-    } else if (newMonth > 12) {
-      setCurrentMonth(`01/${Number(year) + 1}`);
-    } else {
-      setCurrentMonth(`${newMonth < 10 ? `0${newMonth}` : newMonth}/${year}`);
-    }
+    const newDate = new Date(currentDate);
+    newDate.setMonth(currentDate.getMonth() + increment);
+    setCurrentDate(newDate);
   };
 
   const currentMonthExpenses = useMemo(() => {
     return expenses.filter((expense) => {
       if (!expense?.date) return false;
-      return expense.date.slice(3) === currentMonth;
+      const expenseDate = new Date(expense.date);
+      return (
+        expenseDate.getMonth() === currentDate.getMonth() &&
+        expenseDate.getFullYear() === currentDate.getFullYear()
+      );
     });
-  }, [expenses, currentMonth]);
+  }, [expenses, currentDate]);
 
   const totalAmountLabel = useMemo(() => {
     const totalAmount = getExpenseAmount(currentMonthExpenses);
@@ -53,7 +48,7 @@ export default function AllExpensesContainer() {
         </TouchableOpacity>
         <View style={styles.infoTextContainer}>
           <Text variant="titleMedium" style={styles.infoText}>
-            {currentMonth}
+            {`${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`}
           </Text>
           <Text variant="titleMedium" style={styles.totalAmount}>
             Expenses: {totalAmountLabel}

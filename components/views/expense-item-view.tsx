@@ -13,6 +13,8 @@ export function ExpenseItemView({ expense }: ExpenseItemProps) {
   const { category, amount, description, date, paidBy, paidFor } =
     expense ?? {};
 
+  const dateLabel = new Date(date)?.toLocaleDateString();
+
   if (!expense) {
     return null;
   }
@@ -24,7 +26,7 @@ export function ExpenseItemView({ expense }: ExpenseItemProps) {
       <View style={styles.leftContent}>
         <Text variant="labelLarge">{category}</Text>
         <Text variant="labelSmall">{description}</Text>
-        <Text variant="labelSmall">{date}</Text>
+        <Text variant="labelSmall">{dateLabel}</Text>
       </View>
       <View style={styles.rightContent}>
         <Text variant="labelLarge">{getAmountLabel(amount)}</Text>
