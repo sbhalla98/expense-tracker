@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
   },
   rightContent: {
     gap: 4,
-    alignItems: "center",
+    alignItems: "flex-end",
   },
   paidBy: {
     borderRadius: 4,

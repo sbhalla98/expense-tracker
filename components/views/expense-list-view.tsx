@@ -46,13 +46,7 @@ export default function ExpenseListView({ expenses }: ExpenseListViewProps) {
         sections={groupedList}
         keyExtractor={(item) => item.id}
         renderItem={({ item: expense }) => (
-          <ExpenseItemView
-            key={expense?.id}
-            amount={expense?.amount}
-            category={expense?.category}
-            date={expense?.date}
-            expense={expense}
-          />
+          <ExpenseItemView key={expense?.id} expense={expense} />
         )}
         renderSectionHeader={({ section: { title, amount } }) => (
           <>
@@ -100,7 +94,7 @@ const styles = StyleSheet.create({
   expenseGroupHeading: {
     width: "100%",
     paddingVertical: 8,
-    paddingHorizontal: 16,
+    paddingHorizontal: 20,
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
