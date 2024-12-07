@@ -9,8 +9,10 @@ import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { Ionicons } from "@expo/vector-icons";
 import { useThemeColor } from "@/hooks/useThemeColor";
+import useConfigStore from "@/hooks/useConfigStore";
 
 export default function TabLayout() {
+  const { PERSON1, PERSON2 } = useConfigStore();
   const colorScheme = useColorScheme();
   const router = useRouter();
   const borderColor = useThemeColor(
@@ -18,9 +20,11 @@ export default function TabLayout() {
     "borderColor"
   );
 
-  // useEffect(() => {
-  //   router.push("/onboarding");
-  // }, []);
+  useEffect(() => {
+    if (!PERSON1 || !PERSON2) {
+      router.push("/onboarding");
+    }
+  }, []);
 
   return (
     <Tabs

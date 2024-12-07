@@ -1,3 +1,4 @@
+import { PERSONS } from "@/constants/expense-constants";
 import { STORAGE_KEYS } from "@/constants/storage";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { create } from "zustand";
@@ -14,8 +15,8 @@ export type Expense = {
 };
 
 type ConfigStore = {
-  person1: string;
-  person2: string;
+  [PERSONS.PERSON1]: string;
+  [PERSONS.PERSON2]: string;
   setLabels: (person1: string, person2: string) => void;
 };
 
@@ -23,12 +24,12 @@ export const useConfigStore = create<ConfigStore>()(
   persist(
     (set) => {
       return {
-        person1: "",
-        person2: "",
+        [PERSONS.PERSON1]: "",
+        [PERSONS.PERSON2]: "",
         setLabels: (person1, person2) => {
           set({
-            person1,
-            person2,
+            [PERSONS.PERSON1]: person1,
+            [PERSONS.PERSON2]: person2,
           });
         },
       };

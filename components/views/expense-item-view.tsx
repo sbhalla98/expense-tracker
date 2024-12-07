@@ -2,16 +2,28 @@ import { StyleSheet, View } from "react-native";
 import { Text, useTheme } from "react-native-paper";
 import { Expense } from "@/hooks/useExpenseStore";
 import { getAmountLabel } from "@/utils/string-utils";
+import useConfigStore from "@/hooks/useConfigStore";
+import { PERSONS } from "@/constants/expense-constants";
 
 type ExpenseItemProps = {
   expense: Expense;
 };
 
+const getLabel = (value: string, PERSON1: string, PERSON2: string) => {
+  if (value === PERSONS.PERSON1) return PERSON1;
+  if (value === PERSONS.PERSON2) return PERSON2;
+  return value;
+};
+
 export function ExpenseItemView({ expense }: ExpenseItemProps) {
   const theme = useTheme();
+  const { PERSON1, PERSON2 } = useConfigStore();
 
   const { category, amount, description, date, paidBy, paidFor } =
     expense ?? {};
+
+  const paidByLabel = getLabel(paidBy ?? "", PERSON1, PERSON2);
+  const paidForLabel = getLabel(paidFor ?? "", PERSON1, PERSON2);
 
   const dateLabel = new Date(date)?.toLocaleDateString();
 
@@ -39,7 +51,7 @@ export function ExpenseItemView({ expense }: ExpenseItemProps) {
               color: theme.colors.onPrimaryContainer,
             }}
           >
-            Paid For: {paidFor}
+            Paid For: {paidByLabel}
           </Text>
         ) : null}
         {paidBy ? (
@@ -51,7 +63,7 @@ export function ExpenseItemView({ expense }: ExpenseItemProps) {
               color: theme.colors.onPrimaryContainer,
             }}
           >
-            Paid By: {paidBy}
+            Paid By: {paidForLabel}
           </Text>
         ) : null}
       </View>

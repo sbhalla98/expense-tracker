@@ -11,15 +11,17 @@ import {
   EXPENSE_CATEGORY_OPTIONS,
   EXPENSE_CATEGORY_VALUES,
   PAID_BY_OPTIONS,
-  PAID_BY_VALUES,
   PAID_FOR_OPTIONS,
-  PAID_FOR_VALUES,
+  PERSONS,
 } from "@/constants/expense-constants";
 import ChipSelector from "../common/ChipSelector";
 import { DatePickerInput } from "react-native-paper-dates";
 import { FormField } from "./form-field";
 
 type AddExpenseFormProps = {
+  labels: {
+    [person: string]: string;
+  };
   onSubmit: (expense: {
     amount: number;
     category: string;
@@ -30,10 +32,10 @@ type AddExpenseFormProps = {
   }) => void;
 };
 
-export function AddExpenseView({ onSubmit }: AddExpenseFormProps) {
+export function AddExpenseView({ onSubmit, labels = {} }: AddExpenseFormProps) {
   const [date, setDate] = useState<Date | undefined>(new Date());
-  const [paidBy, setPaidBy] = useState<string>(PAID_BY_VALUES.PERSON1);
-  const [paidFor, setPaidFor] = useState<string>(PAID_FOR_VALUES.BOTH);
+  const [paidBy, setPaidBy] = useState<string>(PERSONS.PERSON1);
+  const [paidFor, setPaidFor] = useState<string>(PERSONS.BOTH);
   const [category, setCategory] = useState<string>(
     EXPENSE_CATEGORY_VALUES.FOOD
   );
@@ -69,8 +71,8 @@ export function AddExpenseView({ onSubmit }: AddExpenseFormProps) {
     setDate(new Date());
     setAmount("");
     setCategory(EXPENSE_CATEGORY_VALUES.FOOD);
-    setPaidBy(PAID_BY_VALUES.PERSON1);
-    setPaidFor(PAID_FOR_VALUES.BOTH);
+    setPaidBy(PERSONS.PERSON1);
+    setPaidFor(PERSONS.BOTH);
     setDescription("");
     setErrors({});
   };
@@ -94,7 +96,10 @@ export function AddExpenseView({ onSubmit }: AddExpenseFormProps) {
         <SegmentedButtons
           value={paidBy}
           onValueChange={setPaidBy}
-          buttons={PAID_BY_OPTIONS}
+          buttons={PAID_BY_OPTIONS.map((item) => ({
+            value: item,
+            label: labels[item] || item,
+          }))}
         />
       </FormField>
 
@@ -103,7 +108,10 @@ export function AddExpenseView({ onSubmit }: AddExpenseFormProps) {
         <SegmentedButtons
           value={paidFor}
           onValueChange={setPaidFor}
-          buttons={PAID_FOR_OPTIONS}
+          buttons={PAID_FOR_OPTIONS.map((item) => ({
+            value: item,
+            label: labels[item] || item,
+          }))}
         />
       </FormField>
 

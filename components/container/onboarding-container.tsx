@@ -6,7 +6,7 @@ import useConfigStore from "@/hooks/useConfigStore";
 
 export default function OnboardingContainer() {
   const router = useRouter();
-  const { person1, person2, setLabels } = useConfigStore();
+  const { PERSON1, PERSON2, setLabels } = useConfigStore();
   const onSubmit = (person1: string, person2: string) => {
     setLabels(person1, person2);
     router.back();
@@ -18,7 +18,7 @@ export default function OnboardingContainer() {
       <View style={styles.container}>
         <OnboardingForm
           onSubmit={onSubmit}
-          initialValue={{ person1, person2 }}
+          initialValue={{ PERSON1, PERSON2 }}
         />
       </View>
     </>

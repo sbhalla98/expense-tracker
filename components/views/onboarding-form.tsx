@@ -2,12 +2,13 @@ import { View } from "react-native";
 import { FormField } from "./form-field";
 import { Button, TextInput } from "react-native-paper";
 import { useState } from "react";
+import { PERSONS } from "@/constants/expense-constants";
 
 type OnboardingFormProps = {
   onSubmit: (person1: string, person2: string) => void;
   initialValue: {
-    person1: string;
-    person2: string;
+    [PERSONS.PERSON1]: string;
+    [PERSONS.PERSON2]: string;
   };
 };
 
@@ -15,8 +16,8 @@ export function OnboardingForm({
   onSubmit,
   initialValue,
 }: OnboardingFormProps) {
-  const [person1, setPerson1] = useState(initialValue.person1 ?? "");
-  const [person2, setPerson2] = useState(initialValue.person2 ?? "");
+  const [person1, setPerson1] = useState(initialValue[PERSONS.PERSON1] ?? "");
+  const [person2, setPerson2] = useState(initialValue[PERSONS.PERSON2] ?? "");
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   const validateForm = () => {

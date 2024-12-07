@@ -1,38 +1,14 @@
-export enum PAID_BY_VALUES {
-  PERSON1 = "PERSON1",
-  PERSON2 = "PERSON2",
-}
-
-export const PAID_BY_OPTIONS = [
-  {
-    value: PAID_BY_VALUES.PERSON1,
-    label: PAID_BY_VALUES.PERSON1,
-  },
-  {
-    value: PAID_BY_VALUES.PERSON2,
-    label: PAID_BY_VALUES.PERSON2,
-  },
-];
-
-export enum PAID_FOR_VALUES {
+export enum PERSONS {
   PERSON1 = "PERSON1",
   PERSON2 = "PERSON2",
   BOTH = "Both",
 }
+export const PAID_BY_OPTIONS = [PERSONS.PERSON1, PERSONS.PERSON2];
 
 export const PAID_FOR_OPTIONS = [
-  {
-    value: PAID_FOR_VALUES.PERSON1,
-    label: PAID_FOR_VALUES.PERSON1,
-  },
-  {
-    value: PAID_FOR_VALUES.BOTH,
-    label: PAID_FOR_VALUES.BOTH,
-  },
-  {
-    value: PAID_FOR_VALUES.PERSON2,
-    label: PAID_FOR_VALUES.PERSON2,
-  },
+  PERSONS.PERSON1,
+  PERSONS.BOTH,
+  PERSONS.PERSON2,
 ];
 
 export enum EXPENSE_CATEGORY_VALUES {
