@@ -7,7 +7,7 @@ import { useState, useMemo } from "react";
 import MonthSelectorView from "../views/month-selector-view";
 
 export default function AllExpensesContainer() {
-  const { expenses = [] } = useExpenseStore();
+  const { expenses = [], removeExpense } = useExpenseStore();
   const [currentDate, setCurrentDate] = useState(new Date());
 
   const changeMonth = (increment: number) => {
@@ -31,7 +31,10 @@ export default function AllExpensesContainer() {
         subTitle={`Expenses: ${totalAmountLabel}`}
       />
       <Divider />
-      <ExpenseListView expenses={currentMonthExpenses} />
+      <ExpenseListView
+        expenses={currentMonthExpenses}
+        onLongPressItem={removeExpense}
+      />
     </>
   );
 }

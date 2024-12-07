@@ -9,6 +9,7 @@ import { getGroupedByDate } from "@/utils/arrayUtils";
 
 type ExpenseListViewProps = {
   expenses: Expense[];
+  onLongPressItem: (id: string) => void;
 };
 
 type SectionHeaderProps = {
@@ -39,7 +40,10 @@ const SectionHeader = ({ leftContent, rightContent }: SectionHeaderProps) => {
   );
 };
 
-export default function ExpenseListView({ expenses }: ExpenseListViewProps) {
+export default function ExpenseListView({
+  expenses,
+  onLongPressItem,
+}: ExpenseListViewProps) {
   const groupedList = getGroupedByDate(expenses);
 
   return (
@@ -48,7 +52,11 @@ export default function ExpenseListView({ expenses }: ExpenseListViewProps) {
         sections={groupedList}
         keyExtractor={(item) => item.id}
         renderItem={({ item: expense }) => (
-          <ExpenseItemView key={expense?.id} expense={expense} />
+          <ExpenseItemView
+            key={expense?.id}
+            expense={expense}
+            onLongPress={() => onLongPressItem(expense.id)}
+          />
         )}
         renderSectionHeader={({ section: { title, amount } }) => (
           <SectionHeader

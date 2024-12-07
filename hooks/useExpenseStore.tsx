@@ -18,7 +18,7 @@ type ExpenseStore = {
   expenses: Expense[];
   totalExpenses: number;
   addExpense: (newExpense: Omit<Expense, "id">) => void;
-  removeExpense: (removeExpense: Expense) => void;
+  removeExpense: (removeExpenseId: string) => void;
   removeAllExpense: () => void;
 };
 
@@ -43,9 +43,9 @@ export const useExpenseStore = create<ExpenseStore>()(
             ),
           });
         },
-        removeExpense: (removeExpense: Expense) => {
+        removeExpense: (removeExpenseId: string) => {
           const updatedExpenses = get()?.expenses.filter(
-            (expense: Expense) => expense.id !== removeExpense.id
+            (expense: Expense) => expense.id !== removeExpenseId
           );
           set({
             expenses: updatedExpenses,

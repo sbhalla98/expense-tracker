@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { Chip, Text, useTheme } from "react-native-paper";
 import { Expense } from "@/hooks/useExpenseStore";
 import { getAmountLabel } from "@/utils/string-utils";
@@ -8,9 +8,10 @@ import { MD3Colors } from "react-native-paper/lib/typescript/types";
 
 type ExpenseItemProps = {
   expense: Expense;
+  onLongPress: () => void;
 };
 
-export function ExpenseItemView({ expense }: ExpenseItemProps) {
+export function ExpenseItemView({ expense, onLongPress }: ExpenseItemProps) {
   const theme = useTheme();
   const configStore = useConfigStore();
 
@@ -37,7 +38,7 @@ export function ExpenseItemView({ expense }: ExpenseItemProps) {
   }
 
   return (
-    <>
+    <TouchableOpacity onLongPress={onLongPress}>
       <View
         style={{
           ...styles.container,
@@ -54,7 +55,7 @@ export function ExpenseItemView({ expense }: ExpenseItemProps) {
           <Text variant="labelLarge">{getAmountLabel(amount)}</Text>
         </View>
       </View>
-    </>
+    </TouchableOpacity>
   );
 }
 
