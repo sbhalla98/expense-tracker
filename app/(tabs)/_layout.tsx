@@ -1,5 +1,5 @@
-import { Tabs } from "expo-router";
-import React from "react";
+import { Tabs, useRouter } from "expo-router";
+import React, { useEffect } from "react";
 import { Platform } from "react-native";
 
 import { HapticTab } from "@/components/HapticTab";
@@ -12,16 +12,21 @@ import { useThemeColor } from "@/hooks/useThemeColor";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+  const router = useRouter();
   const borderColor = useThemeColor(
     { light: "#fff", dark: "rgb(21, 23, 24)" },
     "borderColor"
   );
 
+  // useEffect(() => {
+  //   router.push("/onboarding");
+  // }, []);
+
   return (
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-        headerShown: false,
+        headerShown: true,
         tabBarButton: HapticTab,
         tabBarBackground: TabBarBackground,
         tabBarStyle: Platform.select({
@@ -57,7 +62,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="all-expenses"
         options={{
-          title: "All Expenses",
+          title: "Transactions",
           tabBarIcon: ({ focused, color }) => (
             <Ionicons
               name={focused ? "list" : "list-outline"}

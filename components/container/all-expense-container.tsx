@@ -1,6 +1,5 @@
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import useExpenseStore from "../../hooks/useExpenseStore";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { Divider, Icon, Text } from "react-native-paper";
 import ExpenseListView from "../views/expense-list-view";
 import { getAmountLabel } from "@/utils/string-utils";
@@ -34,11 +33,7 @@ export default function AllExpensesContainer() {
   }, [currentMonthExpenses]);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Text variant="headlineMedium" style={styles.header}>
-        Transactions
-      </Text>
-      <Divider />
+    <>
       <View style={styles.infoBar}>
         <TouchableOpacity
           onPress={() => changeMonth(-1)}
@@ -63,18 +58,11 @@ export default function AllExpensesContainer() {
       </View>
       <Divider />
       <ExpenseListView expenses={currentMonthExpenses} />
-    </SafeAreaView>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  header: {
-    padding: 16,
-    fontWeight: 700,
-  },
   infoBar: {
     flexDirection: "row",
     alignItems: "center",

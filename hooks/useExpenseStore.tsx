@@ -1,3 +1,4 @@
+import { STORAGE_KEYS } from "@/constants/storage";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
@@ -19,10 +20,6 @@ type ExpenseStore = {
   removeExpense: (removeExpense: Expense) => void;
   removeAllExpense: () => void;
 };
-
-export enum STORAGE_KEYS {
-  EXPENSES = "Expenses",
-}
 
 export const useExpenseStore = create<ExpenseStore>()(
   persist(

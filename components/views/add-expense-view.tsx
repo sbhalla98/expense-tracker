@@ -17,6 +17,7 @@ import {
 } from "@/constants/expense-constants";
 import ChipSelector from "../common/ChipSelector";
 import { DatePickerInput } from "react-native-paper-dates";
+import { FormField } from "./form-field";
 
 type AddExpenseFormProps = {
   onSubmit: (expense: {
@@ -28,26 +29,6 @@ type AddExpenseFormProps = {
     paidFor: string;
   }) => void;
 };
-
-function FormField({
-  label,
-  error,
-  children,
-}: {
-  label?: string;
-  error?: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <View>
-      {label && <Text variant="labelLarge">{label}</Text>}
-      {children}
-      <HelperText type="error" visible={!!error}>
-        {error}
-      </HelperText>
-    </View>
-  );
-}
 
 export function AddExpenseView({ onSubmit }: AddExpenseFormProps) {
   const [date, setDate] = useState<Date | undefined>(new Date());
