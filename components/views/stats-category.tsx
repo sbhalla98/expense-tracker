@@ -21,10 +21,12 @@ export default function StatsCategory({ expenese }: StatsCategoryProps) {
     )
     .map((item) => {
       const amount = getExpenseAmount(groupedItems[item]);
+      const percentage = ((amount / totalAmount) * 100)?.toFixed(0);
       return {
         category: item,
         amount,
-        percentage: (amount / totalAmount) * 100,
+        percentage,
+        label: `${getAmountLabel(amount)} (${percentage}%)`,
       };
     });
 
@@ -34,9 +36,7 @@ export default function StatsCategory({ expenese }: StatsCategoryProps) {
         <View key={item.category}>
           <View style={{ ...styles.item, borderColor: theme.colors.outline }}>
             <Text variant="labelLarge">{item.category}</Text>
-            <Text variant="labelLarge">
-              {getAmountLabel(item.amount)} ({item.percentage?.toFixed(0)} %)
-            </Text>
+            <Text variant="labelLarge">{item.label}</Text>
           </View>
         </View>
       ))}

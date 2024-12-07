@@ -3,6 +3,7 @@ export enum PERSONS {
   PERSON2 = "PERSON2",
   BOTH = "Both",
 }
+
 export const PAID_BY_OPTIONS = [PERSONS.PERSON1, PERSONS.PERSON2];
 
 export const PAID_FOR_OPTIONS = [
@@ -10,6 +11,18 @@ export const PAID_FOR_OPTIONS = [
   PERSONS.BOTH,
   PERSONS.PERSON2,
 ];
+
+export const PERSONS_CONFIG = {
+  [PERSONS.PERSON1]: {
+    backgroundColor: "shade4",
+  },
+  [PERSONS.PERSON2]: {
+    backgroundColor: "shade1",
+  },
+  [PERSONS.BOTH]: {
+    backgroundColor: "shade3",
+  },
+};
 
 export enum EXPENSE_CATEGORY_VALUES {
   FOOD = "Food",

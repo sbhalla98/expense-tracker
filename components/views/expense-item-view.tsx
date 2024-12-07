@@ -3,7 +3,8 @@ import { Chip, Text, useTheme } from "react-native-paper";
 import { Expense } from "@/hooks/useExpenseStore";
 import { getAmountLabel } from "@/utils/string-utils";
 import useConfigStore from "@/hooks/useConfigStore";
-import { PERSONS } from "@/constants/expense-constants";
+import { PERSONS, PERSONS_CONFIG } from "@/constants/expense-constants";
+import { MD3Colors } from "react-native-paper/lib/typescript/types";
 
 type ExpenseItemProps = {
   expense: Expense;
@@ -17,42 +18,49 @@ const getLabel = (value: string, PERSON1: string, PERSON2: string) => {
 
 export function ExpenseItemView({ expense }: ExpenseItemProps) {
   const theme = useTheme();
-  const { PERSON1, PERSON2 } = useConfigStore();
+  const configStore = useConfigStore();
 
   const { category, amount, description, date, paidBy, paidFor } =
     expense ?? {};
 
-  const paidByLabel = getLabel(paidBy ?? "", PERSON1, PERSON2);
-  const paidForLabel = getLabel(paidFor ?? "", PERSON1, PERSON2);
+  const paidByLabel =
+    paidBy && configStore[paidBy] ? `${configStore[paidBy]} paid` : "";
   const dateLabel = new Date(date)?.toLocaleDateString();
+
+  const getBackgroundColor = () => {
+    if (!paidFor) return theme.colors.surface;
+
+    const config = PERSONS_CONFIG[paidFor];
+    if (!config || !config.backgroundColor) return theme.colors.surface;
+    return (
+      theme.colors[config.backgroundColor as keyof MD3Colors] ??
+      theme.colors.surface
+    );
+  };
 
   if (!expense) {
     return null;
   }
 
   return (
-    <View
-      style={{ ...styles.container, backgroundColor: theme?.colors?.surface }}
-    >
-      <View style={styles.leftContent}>
-        <Text variant="labelLarge">{category}</Text>
-        <Text variant="labelSmall">{description}</Text>
-        <Text variant="labelSmall">{dateLabel}</Text>
+    <>
+      <View
+        style={{
+          ...styles.container,
+          backgroundColor: getBackgroundColor(),
+        }}
+      >
+        <View style={styles.leftContent}>
+          <Text variant="labelLarge">{category}</Text>
+          <Text variant="labelSmall">{description}</Text>
+          <Text variant="labelSmall">{dateLabel}</Text>
+        </View>
+        <View style={styles.rightContent}>
+          <Text variant="labelSmall">{paidByLabel}</Text>
+          <Text variant="labelLarge">{getAmountLabel(amount)}</Text>
+        </View>
       </View>
-      <View style={styles.rightContent}>
-        <Text variant="labelLarge">{getAmountLabel(amount)}</Text>
-        {paidFor ? (
-          <Chip mode="flat" compact>
-            Paid By: {paidByLabel}
-          </Chip>
-        ) : null}
-        {paidBy ? (
-          <Chip mode="flat" compact>
-            Paid For: {paidForLabel}
-          </Chip>
-        ) : null}
-      </View>
-    </View>
+    </>
   );
 }
 

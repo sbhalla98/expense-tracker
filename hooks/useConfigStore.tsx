@@ -15,8 +15,8 @@ export type Expense = {
 };
 
 type ConfigStore = {
-  [PERSONS.PERSON1]: string;
-  [PERSONS.PERSON2]: string;
+  [PERSONS.PERSON1]?: string;
+  [PERSONS.PERSON2]?: string;
   setLabels: (person1: string, person2: string) => void;
 };
 
@@ -37,8 +37,8 @@ export const useConfigStore = create<ConfigStore>()(
     {
       name: STORAGE_KEYS.CONFIG,
       storage: createJSONStorage(() => AsyncStorage),
-    },
-  ),
+    }
+  )
 );
 
 export default useConfigStore;

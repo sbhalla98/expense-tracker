@@ -11,9 +11,35 @@ type ExpenseListViewProps = {
   expenses: Expense[];
 };
 
-export default function ExpenseListView({ expenses }: ExpenseListViewProps) {
-  const theme = useTheme();
+type SectionHeaderProps = {
+  leftContent: string;
+  rightContent: string;
+};
 
+const SectionHeader = ({ leftContent, rightContent }: SectionHeaderProps) => {
+  const theme = useTheme();
+  return (
+    <>
+      <Divider />
+      <View
+        style={{
+          ...styles.expenseGroupHeading,
+          backgroundColor: theme?.colors?.surfaceVariant,
+        }}
+      >
+        <Text variant="bodyMedium" style={{ fontWeight: 700 }}>
+          {leftContent}
+        </Text>
+        <Text variant="bodyMedium" style={{ fontWeight: 700 }}>
+          {rightContent}
+        </Text>
+      </View>
+      <Divider />
+    </>
+  );
+};
+
+export default function ExpenseListView({ expenses }: ExpenseListViewProps) {
   const groupedList = getGroupedByDate(expenses);
 
   return (
@@ -25,23 +51,10 @@ export default function ExpenseListView({ expenses }: ExpenseListViewProps) {
           <ExpenseItemView key={expense?.id} expense={expense} />
         )}
         renderSectionHeader={({ section: { title, amount } }) => (
-          <>
-            <Divider />
-            <View
-              style={{
-                ...styles.expenseGroupHeading,
-                backgroundColor: theme?.colors?.surfaceVariant,
-              }}
-            >
-              <Text variant="bodyMedium" style={styles.expenseGroupHeadingText}>
-                {title}
-              </Text>
-              <Text variant="bodyMedium" style={styles.expenseGroupHeadingText}>
-                {getAmountLabel(amount)}
-              </Text>
-            </View>
-            <Divider />
-          </>
+          <SectionHeader
+            leftContent={title}
+            rightContent={getAmountLabel(amount)}
+          />
         )}
         ListEmptyComponent={() => (
           <ThemedText style={styles.noExpenses}>
@@ -75,9 +88,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-  },
-  expenseGroupHeadingText: {
-    fontWeight: 700,
   },
   groupSeparator: {
     height: 20,

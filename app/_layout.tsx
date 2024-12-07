@@ -25,6 +25,23 @@ export default function RootLayout() {
   const theme = {
     ...(colorScheme === "dark" ? MD3DarkTheme : MD3LightTheme),
     roundness: 8,
+    colors: {
+      ...(colorScheme === "dark"
+        ? {
+            ...MD3DarkTheme.colors,
+            shade1: "#C75A6C",
+            shade2: "#469392",
+            shade3: "#428F66",
+            shade4: "#AB8A62",
+          }
+        : {
+            ...MD3LightTheme.colors,
+            shade1: "#FFAEBC",
+            shade2: "#A0E7E5",
+            shade3: "#B4F8C8",
+            shade4: "#FBE7C6",
+          }),
+    },
   };
 
   useEffect(() => {
