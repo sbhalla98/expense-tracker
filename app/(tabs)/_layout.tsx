@@ -11,12 +11,16 @@ export default function TabLayout() {
   const theme = useTheme();
   const { PERSON1, PERSON2 } = useConfigStore();
 
-  useEffect(() => {
-    if (!PERSON1 || !PERSON2) {
-      setTimeout(() => {
+  const checkOnboarding = () => {
+    setTimeout(() => {
+      if (!PERSON1 || !PERSON2) {
         router.push("/onboarding");
-      }, 2000);
-    }
+      }
+    }, 2000);
+  };
+
+  useEffect(() => {
+    checkOnboarding();
   }, []);
 
   return (
