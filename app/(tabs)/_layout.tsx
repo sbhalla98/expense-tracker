@@ -1,29 +1,43 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-import { Platform } from 'react-native';
+import { Tabs, useRouter } from "expo-router";
+import React, { useEffect } from "react";
+import { Platform } from "react-native";
 
-import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
-import { Ionicons } from '@expo/vector-icons';
-import { useThemeColor } from '@/hooks/useThemeColor';
+import { HapticTab } from "@/components/HapticTab";
+import { IconSymbol } from "@/components/ui/IconSymbol";
+import TabBarBackground from "@/components/ui/TabBarBackground";
+import { Colors } from "@/constants/Colors";
+import { useColorScheme } from "@/hooks/useColorScheme";
+import { Ionicons } from "@expo/vector-icons";
+import { useThemeColor } from "@/hooks/useThemeColor";
+import useConfigStore from "@/hooks/useConfigStore";
 
 export default function TabLayout() {
+  const { PERSON1, PERSON2 } = useConfigStore();
   const colorScheme = useColorScheme();
-  const borderColor = useThemeColor({ light: "#fff", dark: "rgb(21, 23, 24)" }, 'borderColor');
+  const router = useRouter();
+  const borderColor = useThemeColor(
+    { light: "#fff", dark: "rgb(21, 23, 24)" },
+    "borderColor"
+  );
+
+  useEffect(() => {
+    if (!PERSON1 || !PERSON2) {
+      setTimeout(() => {
+        router.push("/onboarding");
+      }, 2000);
+    }
+  }, []);
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
+        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+        headerShown: true,
         tabBarButton: HapticTab,
         tabBarBackground: TabBarBackground,
         tabBarStyle: Platform.select({
           ios: {
-            position: 'absolute',
+            position: "absolute",
           },
           default: {
             borderTopWidth: 0,
@@ -32,26 +46,29 @@ export default function TabLayout() {
             margin: "auto",
             borderLeftWidth: 2,
             borderRightWidth: 2,
-            borderColor
+            borderColor,
           },
         }),
         sceneStyle: {
           maxWidth: 600,
-          margin:"auto",
-          width: "100%"
-        }
-      }}>
+          margin: "auto",
+          width: "100%",
+        },
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          title: "Add Expense",
+          tabBarIcon: ({ color }) => (
+            <IconSymbol size={28} name="house.fill" color={color} />
+          ),
         }}
       />
       <Tabs.Screen
         name="all-expenses"
         options={{
-          title: "All Expenses",
+          title: "Transactions",
           tabBarIcon: ({ focused, color }) => (
             <Ionicons
               name={focused ? "list" : "list-outline"}
@@ -61,7 +78,6 @@ export default function TabLayout() {
           ),
         }}
       />
-
     </Tabs>
   );
 }
