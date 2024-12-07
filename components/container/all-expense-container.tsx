@@ -1,10 +1,10 @@
-import { StyleSheet, TouchableOpacity, View } from "react-native";
 import useExpenseStore from "../../hooks/useExpenseStore";
-import { Divider, Icon, Text } from "react-native-paper";
+import { Divider } from "react-native-paper";
 import ExpenseListView from "../views/expense-list-view";
 import { getAmountLabel } from "@/utils/string-utils";
 import { getExpenseAmount } from "@/utils/arrayUtils";
 import { useState, useMemo } from "react";
+import MonthSelectorView from "../views/month-selector.view";
 
 export default function AllExpensesContainer() {
   const { expenses = [] } = useExpenseStore();
@@ -34,54 +34,13 @@ export default function AllExpensesContainer() {
 
   return (
     <>
-      <View style={styles.infoBar}>
-        <TouchableOpacity
-          onPress={() => changeMonth(-1)}
-          accessibilityLabel="Previous Month"
-        >
-          <Icon source="arrow-left" size={20} />
-        </TouchableOpacity>
-        <View style={styles.infoTextContainer}>
-          <Text variant="titleMedium" style={styles.infoText}>
-            {`${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`}
-          </Text>
-          <Text variant="titleMedium" style={styles.totalAmount}>
-            Expenses: {totalAmountLabel}
-          </Text>
-        </View>
-        <TouchableOpacity
-          onPress={() => changeMonth(1)}
-          accessibilityLabel="Next Month"
-        >
-          <Icon source="arrow-right" size={20} />
-        </TouchableOpacity>
-      </View>
+      <MonthSelectorView
+        changeMonth={changeMonth}
+        title={`${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`}
+        subTitle={`Expenses: ${totalAmountLabel}`}
+      />
       <Divider />
       <ExpenseListView expenses={currentMonthExpenses} />
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  infoBar: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    padding: 8,
-    marginBottom: 8,
-  },
-  infoTextContainer: {
-    alignItems: "center",
-    flex: 1,
-  },
-  infoText: {
-    fontSize: 16,
-    fontWeight: "600",
-  },
-  totalAmount: {
-    fontSize: 16,
-    color: "#007AFF",
-    marginTop: 4,
-    fontWeight: "bold",
-  },
-});
