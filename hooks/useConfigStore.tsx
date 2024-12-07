@@ -37,8 +37,8 @@ export const useConfigStore = create<ConfigStore>()(
     {
       name: STORAGE_KEYS.CONFIG,
       storage: createJSONStorage(() => AsyncStorage),
-    }
-  )
+    },
+  ),
 );
 
 export default useConfigStore;

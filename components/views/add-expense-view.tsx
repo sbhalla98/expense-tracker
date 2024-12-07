@@ -37,7 +37,7 @@ export function AddExpenseView({ onSubmit, labels = {} }: AddExpenseFormProps) {
   const [paidBy, setPaidBy] = useState<string>(PERSONS.PERSON1);
   const [paidFor, setPaidFor] = useState<string>(PERSONS.BOTH);
   const [category, setCategory] = useState<string>(
-    EXPENSE_CATEGORY_VALUES.FOOD
+    EXPENSE_CATEGORY_VALUES.FOOD,
   );
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
