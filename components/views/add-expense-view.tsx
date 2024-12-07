@@ -11,25 +11,26 @@ import {
 import ChipSelector from "../common/ChipSelector";
 import { DatePickerInput } from "react-native-paper-dates";
 import { FormField } from "./form-field";
+import { Expense } from "@/hooks/useExpenseStore";
 
 type AddExpenseFormProps = {
   labels: {
-    [person: string]: string;
+    [person: string]: string | undefined;
   };
   onSubmit: (expense: {
     amount: number;
     category: string;
     date: string;
     description?: string;
-    paidBy: string;
-    paidFor: string;
+    paidBy: Expense["paidBy"];
+    paidFor: Expense["paidFor"];
   }) => void;
 };
 
 export function AddExpenseView({ onSubmit, labels = {} }: AddExpenseFormProps) {
   const [date, setDate] = useState<Date | undefined>(new Date());
-  const [paidBy, setPaidBy] = useState<string>(PERSONS.PERSON1);
-  const [paidFor, setPaidFor] = useState<string>(PERSONS.BOTH);
+  const [paidBy, setPaidBy] = useState<Expense["paidBy"]>(PERSONS.PERSON1);
+  const [paidFor, setPaidFor] = useState<Expense["paidFor"]>(PERSONS.BOTH);
   const [category, setCategory] = useState<string>(
     EXPENSE_CATEGORY_VALUES.FOOD
   );

@@ -7,8 +7,8 @@ import { PERSONS } from "@/constants/expense-constants";
 type OnboardingFormProps = {
   onSubmit: (person1: string, person2: string) => void;
   initialValue: {
-    [PERSONS.PERSON1]: string;
-    [PERSONS.PERSON2]: string;
+    [PERSONS.PERSON1]: string | undefined;
+    [PERSONS.PERSON2]: string | undefined;
   };
 };
 

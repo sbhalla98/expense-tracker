@@ -10,12 +10,6 @@ type ExpenseItemProps = {
   expense: Expense;
 };
 
-const getLabel = (value: string, PERSON1: string, PERSON2: string) => {
-  if (value === PERSONS.PERSON1) return PERSON1;
-  if (value === PERSONS.PERSON2) return PERSON2;
-  return value;
-};
-
 export function ExpenseItemView({ expense }: ExpenseItemProps) {
   const theme = useTheme();
   const configStore = useConfigStore();

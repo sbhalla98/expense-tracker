@@ -5,16 +5,21 @@ import { HapticTab } from "@/components/HapticTab";
 import TabBarBackground from "@/components/ui/TabBarBackground";
 import useConfigStore from "@/hooks/useConfigStore";
 import { Icon, useTheme } from "react-native-paper";
+import { TouchableOpacity } from "react-native";
 
 export default function TabLayout() {
   const router = useRouter();
   const theme = useTheme();
   const { PERSON1, PERSON2 } = useConfigStore();
 
+  const navigateToOnboarding = () => {
+    router.push("/onboarding");
+  };
+
   const checkOnboarding = () => {
     setTimeout(() => {
       if (!PERSON1 || !PERSON2) {
-        router.push("/onboarding");
+        navigateToOnboarding();
       }
     }, 2000);
   };
@@ -37,6 +42,14 @@ export default function TabLayout() {
           title: "Add Expense",
           tabBarIcon: ({ color }) => (
             <Icon source="plus-box" size={24} color={color} />
+          ),
+          headerRight: () => (
+            <TouchableOpacity
+              style={{ padding: 8 }}
+              onPress={navigateToOnboarding}
+            >
+              <Icon source="cog" size={24} />
+            </TouchableOpacity>
           ),
         }}
       />
