@@ -22,7 +22,9 @@ export default function TabLayout() {
 
   useEffect(() => {
     if (!PERSON1 || !PERSON2) {
-      router.push("/onboarding");
+      setTimeout(() => {
+        router.push("/onboarding");
+      }, 2000);
     }
   }, []);
 
