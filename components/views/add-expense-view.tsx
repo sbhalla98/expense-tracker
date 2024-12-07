@@ -1,12 +1,6 @@
 import { useState } from "react";
 import { View } from "react-native";
-import {
-  Button,
-  HelperText,
-  SegmentedButtons,
-  Text,
-  TextInput,
-} from "react-native-paper";
+import { Button, SegmentedButtons, TextInput } from "react-native-paper";
 import {
   EXPENSE_CATEGORY_OPTIONS,
   EXPENSE_CATEGORY_VALUES,
@@ -37,7 +31,7 @@ export function AddExpenseView({ onSubmit, labels = {} }: AddExpenseFormProps) {
   const [paidBy, setPaidBy] = useState<string>(PERSONS.PERSON1);
   const [paidFor, setPaidFor] = useState<string>(PERSONS.BOTH);
   const [category, setCategory] = useState<string>(
-    EXPENSE_CATEGORY_VALUES.FOOD,
+    EXPENSE_CATEGORY_VALUES.FOOD
   );
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");

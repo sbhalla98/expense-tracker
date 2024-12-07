@@ -1,5 +1,5 @@
 import { StyleSheet, View } from "react-native";
-import { Text, useTheme } from "react-native-paper";
+import { Chip, Text, useTheme } from "react-native-paper";
 import { Expense } from "@/hooks/useExpenseStore";
 import { getAmountLabel } from "@/utils/string-utils";
 import useConfigStore from "@/hooks/useConfigStore";
@@ -24,7 +24,6 @@ export function ExpenseItemView({ expense }: ExpenseItemProps) {
 
   const paidByLabel = getLabel(paidBy ?? "", PERSON1, PERSON2);
   const paidForLabel = getLabel(paidFor ?? "", PERSON1, PERSON2);
-
   const dateLabel = new Date(date)?.toLocaleDateString();
 
   if (!expense) {
@@ -43,28 +42,14 @@ export function ExpenseItemView({ expense }: ExpenseItemProps) {
       <View style={styles.rightContent}>
         <Text variant="labelLarge">{getAmountLabel(amount)}</Text>
         {paidFor ? (
-          <Text
-            variant="labelSmall"
-            style={{
-              ...styles.paidBy,
-              backgroundColor: theme.colors.primaryContainer,
-              color: theme.colors.onPrimaryContainer,
-            }}
-          >
-            Paid For: {paidByLabel}
-          </Text>
+          <Chip mode="flat" compact>
+            Paid By: {paidByLabel}
+          </Chip>
         ) : null}
         {paidBy ? (
-          <Text
-            variant="labelSmall"
-            style={{
-              ...styles.paidBy,
-              backgroundColor: theme.colors.primaryContainer,
-              color: theme.colors.onPrimaryContainer,
-            }}
-          >
-            Paid By: {paidForLabel}
-          </Text>
+          <Chip mode="flat" compact>
+            Paid For: {paidForLabel}
+          </Chip>
         ) : null}
       </View>
     </View>
@@ -87,9 +72,5 @@ const styles = StyleSheet.create({
   rightContent: {
     gap: 4,
     alignItems: "flex-end",
-  },
-  paidBy: {
-    borderRadius: 4,
-    padding: 4,
   },
 });

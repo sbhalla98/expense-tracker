@@ -24,7 +24,7 @@ export default function RootLayout() {
 
   const theme = {
     ...(colorScheme === "dark" ? MD3DarkTheme : MD3LightTheme),
-    roundness: 2,
+    roundness: 8,
   };
 
   useEffect(() => {

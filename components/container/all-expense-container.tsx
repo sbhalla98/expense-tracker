@@ -4,7 +4,7 @@ import ExpenseListView from "../views/expense-list-view";
 import { getAmountLabel } from "@/utils/string-utils";
 import { getExpenseAmount } from "@/utils/arrayUtils";
 import { useState, useMemo } from "react";
-import MonthSelectorView from "../views/month-selector.view";
+import MonthSelectorView from "../views/month-selector-view";
 
 export default function AllExpensesContainer() {
   const { expenses = [] } = useExpenseStore();
