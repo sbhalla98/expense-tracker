@@ -1,3 +1,4 @@
+import { Component } from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { Icon, Text, useTheme } from "react-native-paper";
 
@@ -5,11 +6,13 @@ type MonthSelectorViewProps = {
   changeStats: (number: 1 | -1) => void;
   title?: string;
   subTitle?: string;
+  subtitleComponent?: React.ReactNode;
 };
 
 export default function StatsType({
   changeStats,
   title,
+  subtitleComponent,
 }: MonthSelectorViewProps) {
   const theme = useTheme();
   return (
@@ -24,6 +27,7 @@ export default function StatsType({
         <Text variant="titleMedium" style={{ color: theme.colors.secondary }}>
           {title}
         </Text>
+        {subtitleComponent}
       </View>
       <TouchableOpacity
         onPress={() => changeStats(1)}
