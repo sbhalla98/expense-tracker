@@ -2,22 +2,21 @@ import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { Icon, Text, useTheme } from "react-native-paper";
 
 type MonthSelectorViewProps = {
-  changeMonth: (number: number) => void;
+  changeStats: (number: 1 | -1) => void;
   title?: string;
   subTitle?: string;
 };
 
-export default function MonthSelectorView({
-  changeMonth,
+export default function StatsType({
+  changeStats,
   title,
-  subTitle,
 }: MonthSelectorViewProps) {
   const theme = useTheme();
   return (
     <View style={styles.container}>
       <TouchableOpacity
-        onPress={() => changeMonth(-1)}
-        accessibilityLabel="Previous Month"
+        onPress={() => changeStats(-1)}
+        accessibilityLabel="Previous Statistic"
       >
         <Icon source="arrow-left" size={20} />
       </TouchableOpacity>
@@ -25,16 +24,10 @@ export default function MonthSelectorView({
         <Text variant="titleMedium" style={{ color: theme.colors.secondary }}>
           {title}
         </Text>
-        <Text
-          variant="titleMedium"
-          style={{ fontWeight: 700, color: theme.colors.primary }}
-        >
-          {subTitle}
-        </Text>
       </View>
       <TouchableOpacity
-        onPress={() => changeMonth(1)}
-        accessibilityLabel="Next Month"
+        onPress={() => changeStats(1)}
+        accessibilityLabel="Next Statistic"
       >
         <Icon source="arrow-right" size={20} />
       </TouchableOpacity>
@@ -53,5 +46,8 @@ const styles = StyleSheet.create({
   centerContainer: {
     alignItems: "center",
     flex: 1,
+  },
+  subTitle: {
+    fontWeight: "700",
   },
 });

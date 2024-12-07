@@ -32,3 +32,17 @@ export const getGroupedByDate = (expenses: Expense[]) => {
     amount: getExpenseAmount(groupedData[key]),
   }));
 };
+
+export const getCurrentMonthExpenses = (
+  expenses: Expense[],
+  date: Date = new Date()
+) => {
+  return expenses.filter((expense) => {
+    if (!expense?.date) return false;
+    const expenseDate = new Date(expense.date);
+    return (
+      expenseDate.getMonth() === date.getMonth() &&
+      expenseDate.getFullYear() === date.getFullYear()
+    );
+  });
+};

@@ -1,14 +1,26 @@
 import useExpenseStore from "../../hooks/useExpenseStore";
-import { Divider } from "react-native-paper";
+import { Divider, Text } from "react-native-paper";
 import { getAmountLabel } from "@/utils/string-utils";
-import { getExpenseAmount } from "@/utils/arrayUtils";
+import { getCurrentMonthExpenses, getExpenseAmount } from "@/utils/arrayUtils";
 import { useState, useMemo } from "react";
 import MonthSelectorView from "../views/month-selector-view";
 import StatsCategory from "../views/stats-category";
+import StatsType from "../views/stats-type";
 
 export default function StatisticsContainer() {
   const { expenses = [] } = useExpenseStore();
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [currentStat, setCurrentStat] = useState(0);
+
+  const currentMonthExpenses = getCurrentMonthExpenses(expenses, currentDate);
+
+  const STATS_CONFIGS = [
+    {
+      type: "category",
+      label: "Category",
+      component: <StatsCategory expenese={currentMonthExpenses} />,
+    },
+  ];
 
   const changeMonth = (increment: number) => {
     const newDate = new Date(currentDate);
@@ -16,16 +28,10 @@ export default function StatisticsContainer() {
     setCurrentDate(newDate);
   };
 
-  const currentMonthExpenses = useMemo(() => {
-    return expenses.filter((expense) => {
-      if (!expense?.date) return false;
-      const expenseDate = new Date(expense.date);
-      return (
-        expenseDate.getMonth() === currentDate.getMonth() &&
-        expenseDate.getFullYear() === currentDate.getFullYear()
-      );
-    });
-  }, [expenses, currentDate]);
+  const onStatChange = (value: 1 | -1) => {
+    let newValue = currentStat + value;
+    setCurrentStat(newValue);
+  };
 
   const totalAmountLabel = useMemo(() => {
     const totalAmount = getExpenseAmount(currentMonthExpenses);
@@ -40,7 +46,12 @@ export default function StatisticsContainer() {
         subTitle={`Expenses: ${totalAmountLabel}`}
       />
       <Divider />
-      <StatsCategory expenese={currentMonthExpenses} />
+      <StatsType
+        title={STATS_CONFIGS[currentStat]?.label}
+        changeStats={onStatChange}
+      />
+      <Divider />
+      {STATS_CONFIGS[currentStat]?.component}
     </>
   );
 }

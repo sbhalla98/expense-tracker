@@ -34,7 +34,13 @@ export default function StatsCategory({ expenese }: StatsCategoryProps) {
     <View>
       {items.map((item) => (
         <View key={item.category}>
-          <View style={{ ...styles.item, borderColor: theme.colors.outline }}>
+          <View
+            style={{
+              ...styles.item,
+              borderColor: theme.colors.outline,
+              backgroundColor: theme.colors.surface,
+            }}
+          >
             <Text variant="labelLarge">{item.category}</Text>
             <Text variant="labelLarge">{item.label}</Text>
           </View>
