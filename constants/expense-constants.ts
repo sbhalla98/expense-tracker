@@ -1,37 +1,37 @@
 export enum PAID_BY_VALUES {
-  VISHAL = "Vishal",
-  SONALI = "Sonali",
+  PERSON1 = "PERSON1",
+  PERSON2 = "PERSON2",
 }
 
 export const PAID_BY_OPTIONS = [
   {
-    value: PAID_BY_VALUES.VISHAL,
-    label: PAID_BY_VALUES.VISHAL,
+    value: PAID_BY_VALUES.PERSON1,
+    label: PAID_BY_VALUES.PERSON1,
   },
   {
-    value: PAID_BY_VALUES.SONALI,
-    label: PAID_BY_VALUES.SONALI,
+    value: PAID_BY_VALUES.PERSON2,
+    label: PAID_BY_VALUES.PERSON2,
   },
 ];
 
 export enum PAID_FOR_VALUES {
-  VISHAL = "Vishal",
-  SONALI = "Sonali",
+  PERSON1 = "PERSON1",
+  PERSON2 = "PERSON2",
   BOTH = "Both",
 }
 
 export const PAID_FOR_OPTIONS = [
   {
-    value: PAID_FOR_VALUES.VISHAL,
-    label: PAID_FOR_VALUES.VISHAL,
+    value: PAID_FOR_VALUES.PERSON1,
+    label: PAID_FOR_VALUES.PERSON1,
   },
   {
     value: PAID_FOR_VALUES.BOTH,
     label: PAID_FOR_VALUES.BOTH,
   },
   {
-    value: PAID_FOR_VALUES.SONALI,
-    label: PAID_FOR_VALUES.SONALI,
+    value: PAID_FOR_VALUES.PERSON2,
+    label: PAID_FOR_VALUES.PERSON2,
   },
 ];
 
