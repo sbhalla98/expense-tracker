@@ -1,6 +1,5 @@
 import { Tabs, useRouter } from "expo-router";
 import React, { useEffect } from "react";
-import { Platform } from "react-native";
 
 import { HapticTab } from "@/components/HapticTab";
 import { IconSymbol } from "@/components/ui/IconSymbol";
@@ -8,17 +7,12 @@ import TabBarBackground from "@/components/ui/TabBarBackground";
 import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { Ionicons } from "@expo/vector-icons";
-import { useThemeColor } from "@/hooks/useThemeColor";
 import useConfigStore from "@/hooks/useConfigStore";
 
 export default function TabLayout() {
   const { PERSON1, PERSON2 } = useConfigStore();
   const colorScheme = useColorScheme();
   const router = useRouter();
-  const borderColor = useThemeColor(
-    { light: "#fff", dark: "rgb(21, 23, 24)" },
-    "borderColor"
-  );
 
   useEffect(() => {
     if (!PERSON1 || !PERSON2) {
@@ -32,28 +26,8 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-        headerShown: true,
         tabBarButton: HapticTab,
         tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            position: "absolute",
-          },
-          default: {
-            borderTopWidth: 0,
-            maxWidth: 600,
-            width: "100%",
-            margin: "auto",
-            borderLeftWidth: 2,
-            borderRightWidth: 2,
-            borderColor,
-          },
-        }),
-        sceneStyle: {
-          maxWidth: 600,
-          margin: "auto",
-          width: "100%",
-        },
       }}
     >
       <Tabs.Screen

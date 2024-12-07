@@ -43,9 +43,17 @@ export default function RootLayout() {
         <ThemeProvider
           value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
         >
-          <Stack>
+          <Stack
+            screenOptions={{
+              contentStyle: {
+                maxWidth: 600,
+                width: "100%",
+                margin: "auto",
+              },
+            }}
+          >
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="onboarding" options={{ headerShown: true }} />
+            <Stack.Screen name="onboarding" />
             <Stack.Screen name="+not-found" />
           </Stack>
           <StatusBar style="auto" />
