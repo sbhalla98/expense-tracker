@@ -5,39 +5,16 @@ import { Expense } from "@/hooks/useExpenseStore";
 import { ExpenseItemView } from "./expense-item-view";
 import { Divider, Text, useTheme } from "react-native-paper";
 import { getAmountLabel } from "@/utils/string-utils";
-import { getExpenseAmount } from "@/utils/arrayUtils";
+import { getGroupedByDate } from "@/utils/arrayUtils";
 
 type ExpenseListViewProps = {
   expenses: Expense[];
 };
 
-function groupByDate(data) {
-  let groupedData = data.reduce((result, item) => {
-    // Use the date as the key
-    const { date } = item;
-    const localDate = new Date(date)?.toLocaleDateString();
-
-    // If the key doesn't exist, initialize it with an empty array
-    if (!result[localDate]) {
-      result[localDate] = [];
-    }
-
-    // Push the item into the corresponding group
-    result[localDate].push(item);
-
-    return result;
-  }, {}); // Start with an empty object
-
-  return Object.keys(groupedData).map((key) => ({
-    title: key,
-    data: groupedData[key],
-    amount: getExpenseAmount(groupedData[key]),
-  }));
-}
-
 export default function ExpenseListView({ expenses }: ExpenseListViewProps) {
   const theme = useTheme();
-  const groupedList = groupByDate(expenses);
+
+  const groupedList = getGroupedByDate(expenses);
 
   return (
     <>
