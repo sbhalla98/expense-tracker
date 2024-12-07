@@ -1,3 +1,4 @@
+import useConfigStore from "@/hooks/useConfigStore";
 import { Expense } from "@/hooks/useExpenseStore";
 import { getExpenseAmount, groupByKey } from "@/utils/arrayUtils";
 import { getAmountLabel } from "@/utils/string-utils";
@@ -7,10 +8,17 @@ import { StatsLabel } from "./stats-label";
 
 type StatsCategoryProps = {
   expenese: Expense[];
+  key?: "paidBy" | "paidFor";
 };
-export default function StatsCategory({ expenese }: StatsCategoryProps) {
-  const groupedItems = groupByKey(expenese, "category");
+
+export default function StatsPerson({
+  expenese,
+  key = "paidBy",
+}: StatsCategoryProps) {
+  const configStore = useConfigStore();
+
   const totalAmount = getExpenseAmount(expenese);
+  const groupedItems = groupByKey(expenese, key);
 
   const items = Object.keys(groupedItems)
     .sort(
@@ -22,7 +30,7 @@ export default function StatsCategory({ expenese }: StatsCategoryProps) {
       const percentage = ((amount / totalAmount) * 100)?.toFixed(0);
       return {
         key: item,
-        leftContent: item,
+        leftContent: configStore[item] ?? item,
         rightContent: `${getAmountLabel(amount)} (${percentage}%)`,
       };
     });

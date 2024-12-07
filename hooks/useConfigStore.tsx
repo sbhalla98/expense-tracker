@@ -14,7 +14,7 @@ export type Expense = {
   paidFor?: string;
 };
 
-type ConfigStore = {
+export type ConfigStore = {
   [PERSONS.PERSON1]?: string;
   [PERSONS.PERSON2]?: string;
   setLabels: (person1: string, person2: string) => void;

@@ -6,6 +6,7 @@ import { useState, useMemo } from "react";
 import MonthSelectorView from "../views/month-selector-view";
 import StatsCategory from "../views/stats-category";
 import StatsType from "../views/stats-type";
+import StatsPerson from "../views/stats-person";
 
 export default function StatisticsContainer() {
   const { expenses = [] } = useExpenseStore();
@@ -19,6 +20,16 @@ export default function StatisticsContainer() {
       type: "category",
       label: "Category",
       component: <StatsCategory expenese={currentMonthExpenses} />,
+    },
+    {
+      type: "paidBy",
+      label: "Paid By",
+      component: <StatsPerson expenese={currentMonthExpenses} />,
+    },
+    {
+      type: "paidFor",
+      label: "Paid For",
+      component: <StatsPerson expenese={currentMonthExpenses} key="paidFor" />,
     },
   ];
 
