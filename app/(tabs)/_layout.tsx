@@ -49,6 +49,15 @@ export default function TabLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name="statistics"
+        options={{
+          title: "Statistics",
+          tabBarIcon: ({ color }) => (
+            <Icon source="chart-bar" size={24} color={color} />
+          ),
+        }}
+      />
     </Tabs>
   );
 }
