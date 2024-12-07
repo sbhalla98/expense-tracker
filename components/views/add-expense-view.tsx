@@ -63,7 +63,6 @@ export function AddExpenseView({ onSubmit, labels = {} }: AddExpenseFormProps) {
     });
 
     // Reset form
-    setDate(new Date());
     setAmount("");
     setCategory(EXPENSE_CATEGORY_VALUES.FOOD);
     setPaidBy(PERSONS.PERSON1);
