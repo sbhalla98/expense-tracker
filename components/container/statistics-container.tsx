@@ -31,7 +31,9 @@ export default function StatisticsContainer() {
     {
       type: "paidFor",
       label: "Paid For",
-      component: <StatsPerson expenese={currentMonthExpenses} key="paidFor" />,
+      component: (
+        <StatsPerson expenese={currentMonthExpenses} itemKey="paidFor" />
+      ),
     },
   ];
 
