@@ -53,7 +53,7 @@ export default function AllExpensesContainer() {
             }}
             compact
           >
-            {configStore[key] ?? key}
+            {configStore[key] || key}
           </Chip>
         ))}
       </View>
