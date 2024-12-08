@@ -1,6 +1,3 @@
-import { useState } from "react";
-import { View } from "react-native";
-import { Button, SegmentedButtons, TextInput } from "react-native-paper";
 import {
   EXPENSE_CATEGORY_OPTIONS,
   EXPENSE_CATEGORY_VALUES,
@@ -8,10 +5,13 @@ import {
   PAID_FOR_OPTIONS,
   PERSONS,
 } from "@/constants/expense-constants";
-import ChipSelector from "../common/ChipSelector";
-import { DatePickerInput } from "react-native-paper-dates";
-import { FormField } from "./form-field";
 import { Expense } from "@/hooks/useExpenseStore";
+import { useState } from "react";
+import { View } from "react-native";
+import { Button, SegmentedButtons, TextInput } from "react-native-paper";
+import { DatePickerInput } from "react-native-paper-dates";
+import ChipSelector from "../common/ChipSelector";
+import { FormField } from "./form-field";
 
 type AddExpenseFormProps = {
   labels: {

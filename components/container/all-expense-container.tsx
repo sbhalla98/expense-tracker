@@ -1,13 +1,13 @@
-import useExpenseStore from "../../hooks/useExpenseStore";
-import { Chip, Divider, Text, useTheme } from "react-native-paper";
-import ExpenseListView from "../views/expense-list-view";
-import { getAmountLabel } from "@/utils/string-utils";
-import { getCurrentMonthExpenses, getExpenseAmount } from "@/utils/arrayUtils";
-import { useState, useMemo } from "react";
-import MonthSelectorView from "../views/month-selector-view";
-import { View } from "react-native";
 import { PERSONS_CONFIG } from "@/constants/expense-constants";
 import useConfigStore from "@/hooks/useConfigStore";
+import { getCurrentMonthExpenses, getExpenseAmount } from "@/utils/arrayUtils";
+import { getAmountLabel } from "@/utils/string-utils";
+import { useMemo, useState } from "react";
+import { View } from "react-native";
+import { Chip, Divider, Text, useTheme } from "react-native-paper";
+import useExpenseStore from "../../hooks/useExpenseStore";
+import ExpenseListView from "../views/expense-list-view";
+import MonthSelectorView from "../views/month-selector-view";
 
 export default function AllExpensesContainer() {
   const theme = useTheme();

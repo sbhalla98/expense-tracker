@@ -1,3 +1,4 @@
+import { PERSONS } from "@/constants/expense-constants";
 import useConfigStore from "@/hooks/useConfigStore";
 import { Expense } from "@/hooks/useExpenseStore";
 import { getExpenseAmount, groupByKey } from "@/utils/arrayUtils";
@@ -5,7 +6,6 @@ import { getAmountLabel } from "@/utils/string-utils";
 import React from "react";
 import { View } from "react-native";
 import { StatsLabel } from "./stats-label";
-import { PERSONS } from "@/constants/expense-constants";
 
 type StatsCategoryProps = {
   expenese: Expense[];

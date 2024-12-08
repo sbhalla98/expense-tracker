@@ -1,13 +1,13 @@
-import useExpenseStore from "../../hooks/useExpenseStore";
-import { Divider, Text, useTheme } from "react-native-paper";
-import { getAmountLabel } from "@/utils/string-utils";
 import { getCurrentMonthExpenses, getExpenseAmount } from "@/utils/arrayUtils";
-import { useState, useMemo } from "react";
+import { getAmountLabel } from "@/utils/string-utils";
+import { useMemo, useState } from "react";
+import { ScrollView, View } from "react-native";
+import { Divider, useTheme } from "react-native-paper";
+import useExpenseStore from "../../hooks/useExpenseStore";
 import MonthSelectorView from "../views/month-selector-view";
 import StatsCategory from "../views/stats-category";
-import StatsType from "../views/stats-type";
 import StatsPerson from "../views/stats-person";
-import { ScrollView, View } from "react-native";
+import StatsType from "../views/stats-type";
 
 export default function StatisticsContainer() {
   const theme = useTheme();

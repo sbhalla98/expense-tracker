@@ -1,7 +1,6 @@
 import React from "react";
-import { Chip } from "react-native-paper";
-import { ThemedView } from "../ThemedView";
 import { StyleSheet, View } from "react-native";
+import { Chip } from "react-native-paper";
 
 type ChipSelectorProps = {
   value: string;

@@ -1,8 +1,8 @@
-import { View } from "react-native";
-import { FormField } from "./form-field";
-import { Button, TextInput } from "react-native-paper";
-import { useState } from "react";
 import { PERSONS } from "@/constants/expense-constants";
+import { useState } from "react";
+import { View } from "react-native";
+import { Button, TextInput } from "react-native-paper";
+import { FormField } from "./form-field";
 
 type OnboardingFormProps = {
   onSubmit: (person1: string, person2: string) => void;

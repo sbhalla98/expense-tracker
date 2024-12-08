@@ -1,11 +1,11 @@
+import { Expense } from "@/hooks/useExpenseStore";
+import { getGroupedByDate } from "@/utils/arrayUtils";
+import { getAmountLabel } from "@/utils/string-utils";
 import React from "react";
 import { SectionList, StyleSheet, View } from "react-native";
-import { ThemedText } from "../ThemedText";
-import { Expense } from "@/hooks/useExpenseStore";
-import { ExpenseItemView } from "./expense-item-view";
 import { Divider, Text, useTheme } from "react-native-paper";
-import { getAmountLabel } from "@/utils/string-utils";
-import { getGroupedByDate } from "@/utils/arrayUtils";
+import { ThemedText } from "../ThemedText";
+import { ExpenseItemView } from "./expense-item-view";
 
 type ExpenseListViewProps = {
   expenses: Expense[];

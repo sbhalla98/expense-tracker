@@ -1,7 +1,7 @@
+import useConfigStore from "@/hooks/useConfigStore";
 import { ScrollView, View } from "react-native";
 import useExpenseStore from "../../hooks/useExpenseStore";
 import { AddExpenseView } from "../views/add-expense-view";
-import useConfigStore from "@/hooks/useConfigStore";
 
 export default function AddExpenseContainer() {
   const { addExpense } = useExpenseStore();

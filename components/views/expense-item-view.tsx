@@ -1,9 +1,9 @@
-import { StyleSheet, TouchableOpacity, View } from "react-native";
-import { Chip, Text, useTheme } from "react-native-paper";
+import { PERSONS_CONFIG } from "@/constants/expense-constants";
+import useConfigStore from "@/hooks/useConfigStore";
 import { Expense } from "@/hooks/useExpenseStore";
 import { getAmountLabel } from "@/utils/string-utils";
-import useConfigStore from "@/hooks/useConfigStore";
-import { PERSONS, PERSONS_CONFIG } from "@/constants/expense-constants";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { Text, useTheme } from "react-native-paper";
 import { MD3Colors } from "react-native-paper/lib/typescript/types";
 
 type ExpenseItemProps = {

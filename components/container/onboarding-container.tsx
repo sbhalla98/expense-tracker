@@ -1,11 +1,11 @@
 import { Stack, useRouter } from "expo-router";
 import { StyleSheet, View } from "react-native";
 
-import { OnboardingForm } from "../views/onboarding-form";
 import useConfigStore from "@/hooks/useConfigStore";
 import useExpenseStore from "@/hooks/useExpenseStore";
-import { Button, Dialog, Portal, Text, useTheme } from "react-native-paper";
 import { useState } from "react";
+import { Button, Dialog, Portal, Text, useTheme } from "react-native-paper";
+import { OnboardingForm } from "../views/onboarding-form";
 
 export default function OnboardingContainer() {
   const router = useRouter();

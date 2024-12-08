@@ -4,8 +4,8 @@ import React, { useEffect } from "react";
 import { HapticTab } from "@/components/HapticTab";
 import TabBarBackground from "@/components/ui/TabBarBackground";
 import useConfigStore from "@/hooks/useConfigStore";
-import { Icon, useTheme } from "react-native-paper";
 import { TouchableOpacity } from "react-native";
+import { Icon, useTheme } from "react-native-paper";
 
 export default function TabLayout() {
   const router = useRouter();
