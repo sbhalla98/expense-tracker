@@ -7,7 +7,7 @@ import MonthSelectorView from "../views/month-selector-view";
 import StatsCategory from "../views/stats-category";
 import StatsType from "../views/stats-type";
 import StatsPerson from "../views/stats-person";
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
 
 export default function StatisticsContainer() {
   const theme = useTheme();
@@ -86,7 +86,11 @@ export default function StatisticsContainer() {
         }
       />
       <Divider />
-      {STATS_CONFIGS[currentStat]?.component}
+      <ScrollView>
+        <View style={{ paddingBottom: 16 }}>
+          {STATS_CONFIGS[currentStat]?.component}
+        </View>
+      </ScrollView>
     </>
   );
 }

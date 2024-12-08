@@ -20,10 +20,14 @@ export function groupByKey<T>(data: T[], key: keyof T): Record<string, T[]> {
 }
 
 export const getGroupedByDate = (expenses: Expense[]) => {
-  const expensesWithLocalDate = expenses.map((expenses) => ({
-    ...expenses,
-    localDate: new Date(expenses.date)?.toLocaleDateString(),
-  }));
+  const expensesWithLocalDate = expenses
+    .sort(
+      (a, b) => new Date(b.date)?.getTime?.() - new Date(a.date)?.getTime?.()
+    )
+    .map((expenses) => ({
+      ...expenses,
+      localDate: new Date(expenses.date)?.toLocaleDateString(),
+    }));
   const groupedData = groupByKey(expensesWithLocalDate, "localDate");
 
   return Object.keys(groupedData).map((key) => ({
