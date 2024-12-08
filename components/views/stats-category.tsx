@@ -15,7 +15,7 @@ export default function StatsCategory({ expenese }: StatsCategoryProps) {
   const items = Object.keys(groupedItems)
     .sort(
       (a, b) =>
-        getExpenseAmount(groupedItems[b]) - getExpenseAmount(groupedItems[a])
+        getExpenseAmount(groupedItems[b]) - getExpenseAmount(groupedItems[a]),
     )
     .map((item) => {
       const amount = getExpenseAmount(groupedItems[item]);

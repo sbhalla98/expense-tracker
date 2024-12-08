@@ -26,7 +26,7 @@ export default function StatsPerson({
     const sortedGroupedItems = Object.keys(groupedItems)
       .sort(
         (a, b) =>
-          getExpenseAmount(groupedItems[b]) - getExpenseAmount(groupedItems[a])
+          getExpenseAmount(groupedItems[b]) - getExpenseAmount(groupedItems[a]),
       )
       .filter((item) => !(itemKey === "paidFor" && item === PERSONS.BOTH));
 

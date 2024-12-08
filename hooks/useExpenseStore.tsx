@@ -39,19 +39,19 @@ export const useExpenseStore = create<ExpenseStore>()(
             expenses: updatedExpenses,
             totalExpenses: updatedExpenses?.reduce(
               (res: number, item: Expense) => res + item.amount,
-              0
+              0,
             ),
           });
         },
         removeExpense: (removeExpenseId: string) => {
           const updatedExpenses = get()?.expenses.filter(
-            (expense: Expense) => expense.id !== removeExpenseId
+            (expense: Expense) => expense.id !== removeExpenseId,
           );
           set({
             expenses: updatedExpenses,
             totalExpenses: updatedExpenses?.reduce(
               (res: number, item: Expense) => res + item.amount,
-              0
+              0,
             ),
           });
         },
@@ -64,8 +64,8 @@ export const useExpenseStore = create<ExpenseStore>()(
     {
       name: STORAGE_KEYS.EXPENSES,
       storage: createJSONStorage(() => AsyncStorage),
-    }
-  )
+    },
+  ),
 );
 
 export default useExpenseStore;

@@ -22,7 +22,7 @@ export function groupByKey<T>(data: T[], key: keyof T): Record<string, T[]> {
 export const getGroupedByDate = (expenses: Expense[]) => {
   const expensesWithLocalDate = expenses
     .sort(
-      (a, b) => new Date(b.date)?.getTime?.() - new Date(a.date)?.getTime?.()
+      (a, b) => new Date(b.date)?.getTime?.() - new Date(a.date)?.getTime?.(),
     )
     .map((expenses) => ({
       ...expenses,
@@ -39,7 +39,7 @@ export const getGroupedByDate = (expenses: Expense[]) => {
 
 export const getCurrentMonthExpenses = (
   expenses: Expense[],
-  date: Date = new Date()
+  date: Date = new Date(),
 ) => {
   return expenses.filter((expense) => {
     if (!expense?.date) return false;
