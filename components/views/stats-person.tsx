@@ -19,16 +19,16 @@ export default function StatsPerson({
   const configStore = useConfigStore();
 
   const totalAmount = getExpenseAmount(expenese);
-  const groupedItems = groupByKey(expenese, itemKey);
-  console.log(groupedItems, itemKey);
+  const groupedItems: any = {
+    [PERSONS.PERSON1]: [],
+    [PERSONS.PERSON2]: [],
+    ...groupByKey(expenese, itemKey),
+  };
 
   const getItems = () => {
-    const sortedGroupedItems = Object.keys(groupedItems)
-      .sort(
-        (a, b) =>
-          getExpenseAmount(groupedItems[b]) - getExpenseAmount(groupedItems[a]),
-      )
-      .filter((item) => !(itemKey === "paidFor" && item === PERSONS.BOTH));
+    const sortedGroupedItems = Object.keys(groupedItems).filter(
+      (item) => !(itemKey === "paidFor" && item === PERSONS.BOTH),
+    );
 
     const result = sortedGroupedItems.map((item) => {
       let amount = getExpenseAmount(groupedItems[item]);
@@ -50,7 +50,7 @@ export default function StatsPerson({
   const items = getItems();
 
   return (
-    <View>
+    <View style={{ gap: 10 }}>
       {items.map((item) => (
         <StatsLabel
           key={item.key}

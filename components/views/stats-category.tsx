@@ -28,7 +28,7 @@ export default function StatsCategory({ expenese }: StatsCategoryProps) {
     });
 
   return (
-    <View>
+    <View style={{ gap: 10 }}>
       {items.map((item) => (
         <StatsLabel
           key={item.key}

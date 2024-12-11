@@ -6,6 +6,7 @@ import { Divider, useTheme } from "react-native-paper";
 import useExpenseStore from "../../hooks/useExpenseStore";
 import MonthSelectorView from "../views/month-selector-view";
 import StatsCategory from "../views/stats-category";
+import StatsFiveDay from "../views/stats-five-day";
 import StatsPerson from "../views/stats-person";
 import StatsType from "../views/stats-type";
 
@@ -34,6 +35,11 @@ export default function StatisticsContainer() {
       component: (
         <StatsPerson expenese={currentMonthExpenses} itemKey="paidFor" />
       ),
+    },
+    {
+      type: "fiveDay",
+      label: "Five Day Breakup",
+      component: <StatsFiveDay expenses={currentMonthExpenses} />,
     },
   ];
 

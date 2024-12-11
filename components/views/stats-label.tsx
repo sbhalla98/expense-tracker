@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     borderWidth: 0,
     borderBottomWidth: 1,
-    marginTop: 20,
+    marginTop: 0,
     padding: 8,
   },
 });
