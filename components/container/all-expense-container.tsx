@@ -2,7 +2,7 @@ import { PERSONS_CONFIG } from "@/constants/expense-constants";
 import useConfigStore from "@/hooks/useConfigStore";
 import { getCurrentMonthExpenses, getExpenseAmount } from "@/utils/arrayUtils";
 import { getAmountLabel } from "@/utils/string-utils";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { View } from "react-native";
 import { Chip, Divider, Text, useTheme } from "react-native-paper";
 import useExpenseStore from "../../hooks/useExpenseStore";
@@ -26,6 +26,26 @@ export default function AllExpensesContainer() {
     const totalAmount = getExpenseAmount(currentMonthExpenses);
     return getAmountLabel(totalAmount);
   }, [currentMonthExpenses]);
+
+  const syncExpense = async () => {
+    console.log("Syncing expenses...");
+    const res = await fetch(
+      "https://expenses-v2-nine.vercel.app/api/migrate-data",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(expenses),
+      },
+    );
+    const data = await res.json();
+    console.log("Data", data);
+  };
+
+  useEffect(() => {
+    syncExpense();
+  }, [expenses]);
 
   return (
     <>
